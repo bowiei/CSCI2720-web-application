@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Header from './components/Header';
+import App from './app.js';
 
-const root = ReactDOM.createRoot(document.querySelector("#header"));
-root.render(<Header name="Project"/>);
+
+const root = ReactDOM.createRoot(document.querySelector("#app"));
+root.render(<App name="Admin Page"/>);
