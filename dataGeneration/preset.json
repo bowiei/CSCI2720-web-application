@@ -1,0 +1,15 @@
+{
+    "eventID": "",
+    "title": "",
+    "progtimee": "",
+    "date": "",
+    "venue": {
+      "venueID": "",
+      "address": "",
+      "latitude": "",
+      "longitude": ""
+    },
+    "price": "",
+    "desceription": "",
+    "presenterorge": ""
+}
