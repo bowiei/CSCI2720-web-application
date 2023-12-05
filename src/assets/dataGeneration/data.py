@@ -179,5 +179,5 @@ with open('data.json', 'w') as file:
 import shutil
 
 source_file = './data.json'
-destination_folder = '../database/'
+destination_folder = '../data/'
 shutil.move(source_file, destination_folder)
