@@ -10,9 +10,11 @@ npm install #to install the package.json
 npm start
 
 commit branch database and server-side route:
+
 cd CSCI2720-web-application
 
-# to setup database connection # don't run npm start, otherwise port 3000 cannot use.
+to setup database connection  
+don't run npm start, otherwise port 3000 cannot use.
 
 run $ node .\src\router.js  
 e.g. to add user
