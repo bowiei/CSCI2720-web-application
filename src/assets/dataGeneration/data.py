@@ -9,6 +9,9 @@
 from bs4 import BeautifulSoup 
 import random 
 import json
+# move flies for db
+import shutil
+import os
 
 ## preprocess data
 print("preprocessing data...")
@@ -121,11 +124,10 @@ for f in filtered_venue:
 with open('result.txt', 'w') as f:
     f.write(str(result))
 
-# deafult JSON for one data
-with open('preset.json', 'r') as f:
+# deafult JSON for one event data
+with open('preset_event.json', 'r') as f:
     events = json.load(f)
 
-# manipulate data to json
 data = []
 with open('result.txt', 'r') as file:
     for line in file:
@@ -169,15 +171,58 @@ for d in data:
     }
     result_data.append(events)
     
-print("Done, check data.json")
+print("Done with event.json")
 
 # done here
-with open('data.json', 'w') as file:
+with open('event.json', 'w') as file:
     json.dump(result_data, file, indent=4)
 
-# move resultant data to flie for db
-import shutil
+if os.path.isfile('../data/event.json'):
+    os.remove('../data/event.json')
 
-source_file = './data.json'
+source_file = './event.json'
+destination_folder = '../data/'
+shutil.move(source_file, destination_folder)
+
+# deafult JSON for one venue data
+with open('preset_venue.json', 'r') as f:
+    events = json.load(f)
+
+data = []
+with open('result.txt', 'r') as file:
+    for line in file:
+        venue_id, event_id = line.strip().split()
+        data.append((venue_id, event_id))
+
+
+result_data = []
+for s in selectedVenue:
+    venue_id = s
+    venue = venue_data.find(id=venue_id)
+    events = []
+
+    for venueid, eventid in data:
+        if (s == venueid):
+            events.append(eventid)
+
+    venues = {
+        "venueID": venue_id,
+        "address": venue.find('venuee').text,
+        "latitude": venue.find('latitude').text,
+        "longitude": venue.find('longitude').text,
+        "events": events
+    }
+    result_data.append(venues)
+    
+print("Done with venue.json")
+
+# done here
+with open('venue.json', 'w') as file:
+    json.dump(result_data, file, indent=4)
+
+if os.path.isfile('../data/venue.json'):
+    os.remove('../data/venue.json')
+
+source_file = './venue.json'
 destination_folder = '../data/'
 shutil.move(source_file, destination_folder)
