@@ -10,14 +10,24 @@ router.route("/").get((req, res) => {
 
 // Create a new event
 router.route("/add").post((req, res) => {
-  const eventName = req.body.eventName;
+  const eventID = req.body.eventID;
+  const title = req.body.title;
+  const progtimee = req.body.progtimee;
   const date = req.body.date;
-  const location = req.body.location;
+  const venue = req.body.venue;
+  const price = req.body.price;
+  const description = req.body.description;
+  const presenterorge = req.body.presenterorge;
 
   const newEvent = new Event({
-    eventName,
+    eventID,
+    title,
+    progtimee,
     date,
-    location,
+    venue,
+    price,
+    description,
+    presenterorge,
   });
 
   newEvent
@@ -35,17 +45,29 @@ router.route("/:id").get((req, res) => {
 
 // Update a specific event by ID
 router.route("/update/:id").post((req, res) => {
-  Event.findById(req.params.id)
-    .then((event) => {
-      event.eventName = req.body.eventName;
-      event.date = req.body.date;
-      event.location = req.body.location;
+  const eventID = req.params.id;
+  const title = req.body.title;
+  const progtimee = req.body.progtimee;
+  const date = req.body.date;
+  const venue = req.body.venue;
+  const price = req.body.price;
+  const description = req.body.description;
+  const presenterorge = req.body.presenterorge;
 
-      event
-        .save()
-        .then(() => res.json("Event updated!"))
-        .catch((err) => res.status(400).json("Error: " + err));
-    })
+  Event.findByIdAndUpdate(
+    eventID,
+    {
+      title,
+      progtimee,
+      date,
+      venue,
+      price,
+      description,
+      presenterorge,
+    },
+    { new: true }
+  )
+    .then(() => res.json("Event updated!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
