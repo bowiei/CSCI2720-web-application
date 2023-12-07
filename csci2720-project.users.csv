@@ -1,0 +1,4 @@
+_id,username,password,role,__v
+65705784ec9e0849e3030ee2,“user1,date,user,0
+657057a7ec9e0849e3030ee4,user2,pass2,user,0
+657057a7ec9e0849e3030ee5,user3,pass4,admin,0

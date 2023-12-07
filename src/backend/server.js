@@ -1,8 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 5000;
+app.use(cors());
+// app.use(express.urlencoded({ extended: false }));
 
-app.use(express.urlencoded({ extended: false }));
+const port = process.env.PORT || 5000;
 
 const mongoose = require("mongoose");
 const dbURI = "mongodb://127.0.0.1:27017/csci2720-project";
