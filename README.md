@@ -1,22 +1,18 @@
-# CSCI2720-web-application
-
-npm install @googlemaps/react-wrapper
-
 # step for start the project
 
-git clone url
-git checkout branchName
-npm install #to install the package.json
-npm start
+$git clone https://github.com/bowiei/CSCI2720-web-application.git --single-branch --branch dbsetup
+$cd CSCI2720-web-application
+$npm install 
+$npm run init-server
+$npm run server
+$start a new window , then npm start to open the client
+$npm start
 
-commit branch database and server-side route:
+port 3000 : client
+port 5000 : server
 
-cd CSCI2720-web-application
+go to http://localhost:5000/user check server is successful started.
 
-to setup database connection  
-don't run npm start, otherwise port 3000 cannot use.
-
-run $ node .\src\router.js  
-e.g. to add user
-method: post, url:http://localhost:3000/user/register
+send data to backend server
+method: post, url:http://localhost:5000/user/register
 {username:user, password:password, role:admin} send request by postman

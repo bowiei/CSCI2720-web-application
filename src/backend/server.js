@@ -1,6 +1,6 @@
-
 const express = require("express");
 const app = express();
+const port = process.env.PORT || 5000;
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -34,6 +34,6 @@ app.use("/comment", commentRouter);
 app.use("/user", userRouter);
 app.use("/event", eventRouter);
 app.use("/venue", venueRouter);
-app.listen(3000,()=>console.log("listening in port 3000"));
+app.listen(port, () => console.log(`listening in port ${port}`));
 
 module.exports = app;
