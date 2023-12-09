@@ -4,7 +4,9 @@ class Title extends React.Component {
     render() {
         return (
             <header className="bg-warning">
-            <h1 className="display-4 text-center">{this.props.name}</h1> </header>
+            <h1 className="display-4 text-center">{this.props.name}</h1>
+            <button>Log out</button>
+            </header>
         ); 
     }
 }

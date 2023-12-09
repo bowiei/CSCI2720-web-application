@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.23.5",
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,5 +42,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "$git clone https://github.com/bowiei/CSCI2720-web-application.git --single-branch --branch dbsetup </br> $cd CSCI2720-web-application </br> $npm install  </br> $npm run init-server </br> $npm run server </br> $start a new window , then npm start to open the client </br> $npm start </br>",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

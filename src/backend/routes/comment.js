@@ -51,7 +51,7 @@ router.route("/update/:id").post((req, res) => {
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });
-
+ 
 // Delete a specific comment by ID
 router.route("/delete/:id").delete((req, res) => {
   Comment.findByIdAndDelete(req.params.id)
