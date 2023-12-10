@@ -31,7 +31,6 @@ class VenueList extends Component {
     this.setState({ filterKeyword: e.target.value });
   };
 
-
   handleFilter = () => {
     // Filter the table based on the filterKeyword
     const { venues, filterKeyword } = this.state;
