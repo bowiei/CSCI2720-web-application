@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const insertDefaultDB = require("./database.setup");
 app.use(cors());
 // app.use(express.urlencoded({ extended: false }));
 
@@ -22,6 +23,7 @@ mongoose
           console.log(collection.name);
         });
       });
+      insertDefaultDB();
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err);
