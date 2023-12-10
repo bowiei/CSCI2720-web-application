@@ -18,7 +18,7 @@ class VenueList extends Component {
 
   fetchVenues = () => {
     axios
-      .get("http://localhost:550/venue")
+      .get("http://localhost:5500/venue")
       .then((response) => {
         this.setState({ venues: response.data });
       })
