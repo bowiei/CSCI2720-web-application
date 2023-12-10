@@ -1,16 +1,24 @@
 import React from 'react';
 import Header from '../components/header.js';
 import Form from '../components/form.js';
-import Map from '../components/map.js';
+import LocationView from '../components/locationList.js';
 import CommentList from '../components/commentList.js';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
 const libraries = ['places'];
-const mapContainerStyle = {
+const mapstyle={
+  display:'inline-block',
   margin:'1%',
   border:'2px solid black',
-  width: '50vw',
-  height: '50vh',
+  width: '75vw',
+  background:'gray',
+}
+const mapContainerStyle = {
+  display:'inline-block',
+  margin:'1%',
+  border:'2px solid black',
+  width: '49vw',
+  height: '40vh',
 };
 
 let center = {
@@ -20,19 +28,29 @@ let center = {
 
 let zoom=20;
 
-let loc=[7.2905715,80.6337262]
+function chooseLocation(){
+
+}
+
+let loc={
+  venue:'123',
+  address:'111',
+  event:'111',
+};
 
 class UserPage extends React.Component {
     constructor(props) {
         super(props);
+
     }
     render() {
         return (
             <div>
-                <Header name="User Page" userid={this.props.user}/>
-                <Mapp/>{
-                    center.lat++
-                }
+                <Header name="User Page" user={this.props.user}/>
+                <div style={mapstyle} class="card d-inline-block m-2">
+                    <Mapp/>
+                    <LocationView loc={loc} />
+                </div>
                 <Form name="user Comment"/>
             </div>
         );
@@ -55,7 +73,7 @@ const Mapp = () => {
   
     return (
         <GoogleMap mapContainerStyle={mapContainerStyle} zoom={zoom} center={center}>
-          <Marker position={center} />
+          <Marker position={center} onclick="chooseLocation()"/>
         </GoogleMap>
     );
 };
