@@ -11,12 +11,11 @@ $start a new window , then npm start to open the client </br>
 $npm start </br>
 
 port 3000 : client </br>
-port 5000 : server </br>
+port 5500 : server </br>
 
-changed to port <bold> 6000 </bold> in pagesetup branch </br>
 
-go to http://localhost:5000/user check server is successful started. </br>
+go to http://localhost:5500/user check server is successful started. </br>
 
 send data to backend server </br>
-method: post, url:http://localhost:5000/user/register </br>
+method: post, url:http://localhost:5500/user/register </br>
 {username:user, password:password, role:admin} send request by postman </br>
