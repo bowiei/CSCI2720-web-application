@@ -3,6 +3,7 @@
 $git clone https://github.com/bowiei/CSCI2720-web-application.git --single-branch --branch dbsetup </br>
 $cd CSCI2720-web-application </br>
 $npm install  </br>
+$npm install @react-google-maps/api use-places-autocomplete
 $npm run init-server </br>
 $npm run server </br>
 $start a new window , then npm start to open the client </br>

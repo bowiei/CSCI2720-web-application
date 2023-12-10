@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.23.5",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@googlemaps/react-wrapper": "^1.1.35",
+    "@react-google-maps/api": "^2.19.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
     "react-scripts": "^5.0.1",
+    "use-places-autocomplete": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
