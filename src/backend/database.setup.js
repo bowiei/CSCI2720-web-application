@@ -18,7 +18,7 @@ const insert = (route, model) => {
               console.log("Comments saved successfully:", result);
             })
             .catch((error) => {
-              console.error("Error saving comments:", error);
+              console.error("Error on saving:", error);
             });
         } catch (error) {
             console.error("Error parsing JSON data:", error);
