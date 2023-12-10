@@ -19,7 +19,7 @@ class CommentSection extends Component {
   fetchComments = () => {
     // Send a GET request to the backend endpoint
     axios
-      .get(`http://localhost:5000/comment`, {
+      .get(`http://localhost:5500/comment`, {
         params: {
           
         },

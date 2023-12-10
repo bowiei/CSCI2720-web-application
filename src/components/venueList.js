@@ -18,7 +18,7 @@ class VenueList extends Component {
 
   fetchVenues = () => {
     axios
-      .get("http://localhost:5000/venue")
+      .get("http://localhost:550/venue")
       .then((response) => {
         this.setState({ venues: response.data });
       })
@@ -77,7 +77,7 @@ class VenueList extends Component {
     return (
       <div>
         <div>
-          <input type="text" value={filterKeyword} onChange={this.handleInputChange} placeholder="Search address by keywords" className="w-50"/>
+          <input type="text" value={filterKeyword} onChange={this.handleInputChange} placeholder="Search address by keywords" className="w-50" />
           <button onClick={this.handleFilter}>Filter</button>
           <button onClick={this.handleSort}>Sort</button>
           <button onClick={this.handleReset}>Reset</button>
