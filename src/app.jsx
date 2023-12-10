@@ -34,6 +34,7 @@ class App extends React.Component {
               <Route path="/" element={<UserPage />} />
               <Route path="/form" element={<AdminPage />} />
               <Route path="/userList" element={<UserList />} />
+              <Route path="/CommentSection" element={<CommentSection />} />
               <Route path="/locationTable" element={<VenueList />} />
             </Routes>
           </BrowserRouter>
