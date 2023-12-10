@@ -12,7 +12,7 @@ $npm start </br>
 port 3000 : client </br>
 port 5000 : server </br>
 
-changed to port <bold> 6000 </bold> in pagesetup branch </br>
+changed to port <bold> 5500 </bold> in pagesetup branch </br>
 
 go to http://localhost:5000/user check server is successful started. </br>
 

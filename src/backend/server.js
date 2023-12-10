@@ -5,7 +5,7 @@ const insertDefaultDB = require("./database.setup");
 app.use(cors());
 // app.use(express.urlencoded({ extended: false }));
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5500;
 
 const mongoose = require("mongoose");
 const dbURI = "mongodb://127.0.0.1:27017/csci2720-project";

@@ -1,5 +1,6 @@
 import React from 'react';
 import UserList from './userList';
+import EventList from './eventList';
 import { FormtypeDate, FormtypeText, FormtypeNumber, FormtypeVenue } from './formtype';
 class Form extends React.Component {
     render() {
@@ -24,8 +25,9 @@ class EventDropdown extends React.Component {
             case 'Create Event':
                 this.setState({form: <CreateEventForm/>});
                 break;
-            // case 'Read Event':
-            //     return <ReadEventForm/>;
+            case 'Read Event':
+                this.setState({form: <EventList/>}); 
+                break;
             case 'Update Event':
                 this.setState({form: <UpdateEventForm/>});
                 break;

@@ -1,74 +1,85 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-// eventID: 
-// title: 
-// progtimee: 
-// date:
 // venue: {
 //   venueID: 
 //   address: 
 //   latitude: 
 //   longitude: 
-// },
-// price: 
-// description: 
-// presenterorge: 
+// }
 
-// hover for more details for venue and date
+// venue have bug
+//dates get 5 lastest date
 const Event = (props) => (
-  <tr>
-    <td>{props.Event.eventID}</td>
-    <td>{props.Event.title}</td>
-    <td>{props.Event.progtimee}</td>
-    <td>{props.Event.date}</td> 
-    <td>{props.Event.venue}</td>
-    <td>{props.Event.title}</td>
-    <td>{props.Event.eventID}</td>
-    <td>{props.Event.title}</td>
-  </tr>
+    <tr>
+        <td>{props.event.eventID}</td>
+        <td>{props.event.title}</td>
+        <td>{props.event.progtimee}</td>
+        <td>
+            {props.event.date.slice(-5).map((date) => (
+            <tr key={date}>
+                <td>{date}</td>
+            </tr>
+            ))}
+        </td>
+        <td>{props.event.venue.venueID}</td>
+        <td>{props.event.venue.address}</td>
+        <td>
+        {props.event.venue.latitude} 
+        <br></br>
+        {props.event.venue.longitude}
+        </td>
+        <td>{props.event.price}</td>
+        <td>{props.event.price}</td>
+        <td>{props.event.description}</td>
+        <td>{props.event.presenterorge}</td>
+    </tr>
 );
 
-export default class UserList extends Component {
-  constructor(props) {
-    super(props);
+export default class EventList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            events: [],
+            td: ["eventID", "title", "prog time", "date", "venueID", "address",
+            "latitude & longitude", "price", "description", "presenterorge"]
+        };
+    }
 
-    this.state = {
-      users: [],
-    };
-  }
+    componentDidMount() {
+        axios
+        .get("http://localhost:5500/event/")
+        .then((response) => {
+            this.setState({ events: response.data });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
 
-  componentDidMount() {
-    axios
-      .get("http://localhost:6000/user/")
-      .then((response) => {
-        this.setState({ users: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    eventListHead() {
+        return this.state.td.map((currentTd) => {
+            return <th>{currentTd}</th>;
+        });
+    }
 
-  userList() {
-    return this.state.users.map((currentUser) => {
-      return <User user={currentUser} key={currentUser._id} />;
-    });
-  }
+    eventListBody() {
+        return this.state.events.map((currentEvent) => {
+            return <Event event={currentEvent} key={currentEvent._id} />;
+        });
+    }
 
-  render() {
-    return (
-      <div>
-        <h3>User List</h3>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Username</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>{this.userList()}</tbody>
-        </table>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div style={{ overflowX: "auto"}}>
+                <h3>Event List</h3>
+                <table className="table">
+                    <thead className="thead-light">
+                    <tr>{this.eventListHead()}</tr>
+                    </thead>
+                    <tbody>{this.eventListBody()}</tbody>
+                </table>
+            </div>
+        );
+    }
 }
