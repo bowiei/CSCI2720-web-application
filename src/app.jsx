@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import UserPage from './pages/user.js';
 import AdminPage from './pages/admin.js';
 import UserList from './components/userList.js';
+import CommentSection from "./components/comment.js";
 
 class App extends React.Component {
     render() {
@@ -20,12 +21,16 @@ class App extends React.Component {
                 <li>
                   <Link to="/userList"> userList Page </Link>
                 </li>
+                <li>
+                  <Link to="/CommentSection"> Comment Section </Link>
+                </li>
               </ul>
             </div>
             <Routes>
               <Route path="/" element={<UserPage />} />
               <Route path="/form" element={<AdminPage />} />
               <Route path="/userList" element={<UserList />} />
+              <Route path="/CommentSection" element={<CommentSection />} />
             </Routes>
           </BrowserRouter>
         );

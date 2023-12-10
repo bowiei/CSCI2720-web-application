@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const User = require("../model/user.model");
 
+const express = require("express");
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
+
 // Read all users
 router.route("/").get((req, res) => {
   User.find()

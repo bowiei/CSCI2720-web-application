@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-  venueID: { type: String, required: true },
-  userID: { type: String, required: true },
+  commentID: { type: Number, required: true, unique: true },
+  username: { type: String, required: true },
   comment: { type: String, required: true },
   datetime: { type: Date, default: Date.now },
 });

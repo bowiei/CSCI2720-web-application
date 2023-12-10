@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const Comment = require("../model/comment.model");
+const express = require("express");
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
 
 // Read all comments
 router.route("/").get((req, res) => {

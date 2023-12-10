@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const Event = require("../model/event.model");
+const express = require("express");
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
 
 // Read all events
 router.route("/").get((req, res) => {
