@@ -1,10 +1,31 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const User = (props) => (
+// eventID: 
+// title: 
+// progtimee: 
+// date:
+// venue: {
+//   venueID: 
+//   address: 
+//   latitude: 
+//   longitude: 
+// },
+// price: 
+// description: 
+// presenterorge: 
+
+// hover for more details for venue and date
+const Event = (props) => (
   <tr>
-    <td>{props.user.username}</td>
-    <td>{props.user.role}</td>
+    <td>{props.Event.eventID}</td>
+    <td>{props.Event.title}</td>
+    <td>{props.Event.progtimee}</td>
+    <td>{props.Event.date}</td> 
+    <td>{props.Event.venue}</td>
+    <td>{props.Event.title}</td>
+    <td>{props.Event.eventID}</td>
+    <td>{props.Event.title}</td>
   </tr>
 );
 
