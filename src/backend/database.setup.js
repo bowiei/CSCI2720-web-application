@@ -10,7 +10,6 @@ const insert = (route, model) => {
             console.error("Error reading JSON file:", error);
             return;
         }
-      
         try {
             const dataname = JSON.parse(data);
             model.insertMany(dataname)

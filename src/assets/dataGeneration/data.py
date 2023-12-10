@@ -222,7 +222,7 @@ for s in selectedVenue:
         "events": events
     }
     result_data.append(venues)
-    
+
 print("Done with venue.json")
 
 # done here
