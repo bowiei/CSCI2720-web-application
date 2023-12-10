@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-// venue: {
-//   venueID: 
-//   address: 
-//   latitude: 
-//   longitude: 
-// }
-
-// venue have bug
-//dates get 5 lastest date
 const Event = (props) => (
     <tr>
         <td>{props.event.eventID}</td>
