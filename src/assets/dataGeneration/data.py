@@ -12,6 +12,7 @@ import json
 # move flies for db
 import shutil
 import os
+import re
 
 ## preprocess data
 print("preprocessing data...")
@@ -54,10 +55,17 @@ for event in events:
     for tag in child_tags:
         if tag.name not in tags_remain:
             tag.decompose()
-        if tag.name == "titlee" and tag.text.strip() == "":
+        if tag.name == "titlee" and tag.text.strip() == "" and re.search(r'[\u4e00-\u9fff]', tag.text):
             event.decompose()
         if tag.name == "progtimee" and tag.text.strip() == "":
             event.decompose()
+        if tag.name == "pricee": # Get first price value
+            if tag.string is not None:
+                tag.string = re.sub(r'\D', ' ', tag.string)
+                match = re.search(r'\d+', tag.string)
+                if match:
+                    tag.string = match.group()
+
 
 filtered_event = BeautifulSoup(event_data.encode_contents(), 'xml')
 
@@ -151,6 +159,8 @@ for d in data:
     event = event_data.find(id=event_id)
     venue = venue_data.find(id=venue_id)
     programDate = programDates_data.find(id=event_id)
+
+    price_text = event.find('pricee').text
     for x in programDate.find_all():
         dates.append(x.text)
     events = {
@@ -164,10 +174,9 @@ for d in data:
             "latitude": venue.find('latitude').text,
             "longitude": venue.find('longitude').text,
         },
-        # null allowed here
-        "price": event.find('pricee').text if event.find('pricee').text else "no details", 
-        "description": event.find('desce').text if event.find('desce').text else "no details",
-        "presenterorge": event.find('presenterorge').text if event.find('presenterorge').text else "no details"
+        "price": int(price_text) if price_text.isdigit() and price_text else 0,
+        "description": event.find('desce').text if event.find('desce').text else "None",
+        "presenterorge": event.find('presenterorge').text if event.find('presenterorge').text else "None"
     }
     result_data.append(events)
     
@@ -213,7 +222,7 @@ for s in selectedVenue:
         "events": events
     }
     result_data.append(venues)
-    
+
 print("Done with venue.json")
 
 # done here

@@ -21,7 +21,6 @@ const Event = (props) => (
       {props.event.venue.longitude}
     </td>
     <td>{props.event.price}</td>
-    <td>{props.event.price}</td>
     <td>{props.event.description}</td>
     <td>{props.event.presenterorge}</td>
   </tr>

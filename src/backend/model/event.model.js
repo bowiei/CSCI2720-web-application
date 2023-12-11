@@ -14,7 +14,7 @@ const eventSchema = new Schema(
       latitude: { type: String, required: true },
       longitude: { type: String, required: true },
     },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     description: { type: String, required: true },
     presenterorge: { type: String, required: true },
   },

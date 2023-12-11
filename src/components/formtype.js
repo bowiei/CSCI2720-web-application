@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class FormtypeText extends React.Component {
   render() {
@@ -34,13 +35,33 @@ class FormtypeDate extends React.Component {
 }
 
 class FormtypeVenue extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { venues: [] };
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:5500/venue/")
+      .then((response) => {
+        this.setState({ venues: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div>
         <label htmlFor={this.props.label}>{this.props.labelText}</label>
-        <div>
-          <input name={this.props.label} type="text" className="form-control" placeholder={this.props.placeholder} />
-        </div>
+        <select className="form-control" name={this.props.label} id={this.props.label}>
+          {this.state.venues.map((venue) => (
+            <option key={venue._id} value={JSON.stringify(venue)}>
+              {venue.address}
+            </option>
+          ))}
+        </select>
       </div>
     );
   }

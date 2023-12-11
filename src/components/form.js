@@ -84,9 +84,9 @@ class CreateEventForm extends React.Component {
         <FormtypeText label="progtimee" labelText="Program Length" placeholder="Enter program length here: " />
         <FormtypeDate label="date" labelText="Date  " placeholder="Enter date here: " />
         <FormtypeVenue label="venue" labelText="Venue" placeholder="Enter venue here: " />
-        <FormtypeVenue label="price" labelText="Price" placeholder="Enter price here: " />
-        <FormtypeVenue label="description" labelText="Description" placeholder="Enter description here: " />
-        <FormtypeVenue label="presenterorge" labelText="Presenter/Organizer" placeholder="Enter presenter/organizer here: " />
+        <FormtypeText label="price" labelText="Price" placeholder="Enter price here: " />
+        <FormtypeText label="description" labelText="Description" placeholder="Enter description here: " />
+        <FormtypeText label="presenterorge" labelText="Presenter/Organizer" placeholder="Enter presenter/organizer here: " />
         <br></br>
         <button type="submit" className="btn btn-primary">
           Submit
@@ -105,9 +105,9 @@ class UpdateEventForm extends React.Component {
         <FormtypeText label="progtimee" labelText="Program Length" placeholder="Enter program length here: " />
         <FormtypeDate label="date" labelText="Date  " placeholder="Enter date here: " />
         <FormtypeVenue label="venue" labelText="Venue" placeholder="Enter venue here: " />
-        <FormtypeVenue label="price" labelText="Price" placeholder="Enter price here: " />
-        <FormtypeVenue label="description" labelText="Description" placeholder="Enter description here: " />
-        <FormtypeVenue label="presenterorge" labelText="Presenter/Organizer" placeholder="Enter presenter/organizer here: " />
+        <FormtypeText label="price" labelText="Price" placeholder="Enter price here: " />
+        <FormtypeText label="description" labelText="Description" placeholder="Enter description here: " />
+        <FormtypeText label="presenterorge" labelText="Presenter/Organizer" placeholder="Enter presenter/organizer here: " />
         <br></br>
         <button type="submit" className="btn btn-primary">
           Submit

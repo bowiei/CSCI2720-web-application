@@ -9,7 +9,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
+<<<<<<< HEAD
     "bootstrap": "^5.3.2",
+=======
+    "cors": "^2.8.5",
+>>>>>>> b9a2af8ab8c4fe52946a62d0f651ccb4c46983ca
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^8.0.2",
