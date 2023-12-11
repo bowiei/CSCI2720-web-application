@@ -44,7 +44,7 @@ class UserPage extends React.Component {
     return (
       <div>
         <Header name="User Page" user={this.props.user} />
-        <div style={mapstyle} class="card d-inline-block m-2">
+        <div style={mapstyle} className="card d-inline-block m-2">
           <Mapp />
           <LocationView loc={loc} />
         </div>

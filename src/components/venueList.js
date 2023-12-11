@@ -76,7 +76,7 @@ class VenueList extends Component {
           <thead>
             <tr>
               <th>VenueID</th>
-              <th>Address(English)</th>
+              <th>Address</th>
               <th>Latitude</th>
               <th>Longitude</th>
               <th>No. of Events</th>

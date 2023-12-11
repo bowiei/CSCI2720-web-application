@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // dotenv.config();
 class CommentSection extends Component {
   constructor(props) {
@@ -20,15 +22,13 @@ class CommentSection extends Component {
     // Send a GET request to the backend endpoint
     axios
       .get(`http://localhost:5500/comment`, {
-        params: {
-          
-        },
+        params: {},
       })
       .then((response) => {
         // Update the comments state with the fetched comments
         // console.log(response.data);
         this.setState({ comments: response.data }, () => {
-          console.log(this.state.comments);
+          // console.log(this.state.comments);
         });
       })
       .catch((error) => {
@@ -39,6 +39,15 @@ class CommentSection extends Component {
   handleLocationClick = () => {
     // Implement method to handle location click and search in database
   };
+  //avatar ref: https://usersinsights.com/user-avatar-icons/
+  getRandomAvatar = () => {
+    const avatarContext = require.context("../assets/avatar", false, /\.(png|jpe?g|svg)$/);
+    const avatarFiles = avatarContext.keys();
+    const randomIndex = Math.floor(Math.random() * avatarFiles.length);
+    const randomAvatarPath = avatarContext(avatarFiles[randomIndex]);
+    // console.log("path : " , randomAvatarPath);
+    return randomAvatarPath;
+  };
 
   render() {
     const { comments, location } = this.state;
@@ -48,12 +57,18 @@ class CommentSection extends Component {
         <div className="map" onClick={this.handleLocationClick}></div>
         <div className="comment-list">
           {comments.map((comment) => (
-            <div className="comment" key={comment.commentID}>
-              <p>Comment ID: {comment.commentID}</p>
-              <p>Comment: {comment.comment}</p>
-              <p>Username: {comment.username}</p>
-              <p>Datetime: {comment.datetime}</p>
-              <hr />
+            <div className="comment card mb-3" key={comment.commentID}>
+              <div className="card-body">
+                {/* <h5 className="card-title">Comment ID: {comment.commentID}</h5> */}
+                <h5 className="card-title">
+                  <img src={this.getRandomAvatar()} alt="User Avatar" style={{ height: 50, width: 50 }} className="avatar" />
+                  {comment.username}
+                </h5>
+                <p className="card-title">
+                  {comment.comment} (Date: {comment.datetime.split("T")[0]})
+                </p>
+                {/* <p className="card-text">Date: {comment.datetime.split("T")[0]}</p> */}
+              </div>
             </div>
           ))}
         </div>
@@ -61,5 +76,6 @@ class CommentSection extends Component {
     );
   }
 }
+
 
 export default CommentSection;

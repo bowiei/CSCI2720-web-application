@@ -9,9 +9,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
+    "bootstrap": "^5.3.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^8.0.2",
+    "nodemon": "^3.0.2",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "init-server": "cd src/backend/ && npm install",
-    "server": "node src/backend/server.js"
+    "server": "nodemon src/backend/server.js"
   },
   "eslintConfig": {
     "extends": [
