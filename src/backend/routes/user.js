@@ -30,18 +30,32 @@ router.route("/register").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Read a specific user by ID
-router.route("/:id").get((req, res) => {
-  User.findById(req.params.id)
+// Read a specific user by username
+router.route("/:username").get((req, res) => {
+  User.findOne({ username: req.params.username })
     .then((user) => res.json(user))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Update a specific user by ID
-router.route("/update/:id").post((req, res) => {
-  User.findById(req.params.id)
+// Update a specific user by username post
+router.route("/update/:username").post((req, res) => {
+  User.findOne({ username: req.params.username })
     .then((user) => {
-      user.username = req.body.username;
+      user.username = req.params.username;
+      user.password = req.body.password;
+      user
+        .save()
+        .then(() => res.json("User updated!"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+// Update a specific user by username put
+router.route("/update/:username").put((req, res) => {
+  User.findOne({ username: req.params.username })
+    .then((user) => {
+      user.username = req.params.username;
       user.password = req.body.password;
 
       user
@@ -52,10 +66,11 @@ router.route("/update/:id").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Delete a specific user by ID
-router.route("/delete/:id").delete((req, res) => {
-  User.findByIdAndDelete(req.params.id)
-    .then(() => res.json("User deleted."))
+
+// Delete a specific user by username
+router.route("/delete/:username").delete((req, res) => {
+  User.findOneAndDelete({ username: req.params.username })
+    .then(() => res.json("User deleted: " + req.params.username))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
