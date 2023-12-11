@@ -63,13 +63,13 @@ class LocationTable extends Component {
 
   handleLocationClick = (location) => {
     // Call the handleLocationSelect method from the App component to update the selected_location state
-    console.log("Selected Location ID: " + location.toString());
+    console.log("Selected Location ID:(locationTable.js) " + location.toString());
     this.props.handleLocationSelect(location);
   };
 
   render() {
     const { venues, filterKeyword, sortByEvent } = this.state;
-
+    // const { handleLocationSelect } = this.props;
     return (
       <div>
         <div>
@@ -91,7 +91,9 @@ class LocationTable extends Component {
               <tr key={venue.venueID}>
                 <td>
                   {venue.address}
-                  <button className="" onClick={() => this.handleLocationClick(venue.venueID)}>Click to zoom</button>
+                  <button className="" onClick={() => this.handleLocationClick(venue.venueID)}>
+                    Click to zoom
+                  </button>
                 </td>
                 <td>{venue.events.length}</td>
               </tr>

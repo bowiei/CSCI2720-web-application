@@ -32,16 +32,16 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Read a specific venue by ID
-router.route("/:id").get((req, res) => {
-  Venue.findById(req.params.id)
+// Read a specific venueID
+router.route("/:venueID").get((req, res) => {
+  Venue.findOne({ venueID: req.params.venueID })
     .then((venue) => res.json(venue))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Update a specific venue by ID
-router.route("/update/:id").post((req, res) => {
-  Venue.findById(req.params.id)
+// Update a specific venueID
+router.route("/update/:venueID").post((req, res) => {
+  Venue.findOne({ venueID: req.params.venueID })
     .then((venue) => {
       venue.venueName = req.body.venueName;
       venue.location = req.body.location;
