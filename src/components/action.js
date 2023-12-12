@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import UserList from "./userList";
 import EventList from "./eventList";
 

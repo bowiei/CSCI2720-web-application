@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "./searchbar";
+import UpdateEventForm from "./UpdateEventForm";
 
 class Event extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class Event extends Component {
         {isEditing ? (
           <td colSpan="4">
             <h4> Edit event {event.eventID} </h4>
-            {/* <UpdateUserForm event={event} onEventUpdated={this.handleEventUpdated} onCancel={() => this.setState({ isEditing: false })} /> */}
+            <UpdateEventForm event={event} onEventUpdated={this.handleEventUpdated} onCancel={() => this.setState({ isEditing: false })} />
           </td>
         ) : (
           <>
@@ -115,28 +116,15 @@ export default class EventList extends Component {
     });
   }
 
-  eventListBody() {
-    const { events, filterKeyword } = this.state;
-    const filteredEvents = events.filter((event) =>
-      event.title.toLowerCase().includes(filterKeyword.toLowerCase())
-    );
-
-    return filteredEvents.map((currentEvent) => {
-      return (
-        <Event event={currentEvent} key={currentEvent._id} onEventDeleted={this.fetchEvents.bind(this)}/>
-      );
-    });
-  }
-
   handleInputChange = (e) => {
     this.setState({ filterKeyword: e.target.value });
   };
 
   handleFilter = () => {
     // Filter the table based on the filterKeyword
-    const { Events, filterKeyword } = this.state;
-    const filteredEvents = Events.filter((event) => event.title.toLowerCase().includes(filterKeyword.toLowerCase()));
-    this.setState({ Events: filteredEvents });
+    const { events, filterKeyword } = this.state;
+    const filteredEvents = events.filter((event) => event.title.toLowerCase().includes(filterKeyword.toLowerCase()));
+    this.setState({ events: filteredEvents });
   };
 
   handleReset = () => {
@@ -148,7 +136,7 @@ export default class EventList extends Component {
   };
 
   render() {
-    const { filterKeyword } = this.state;
+    const { events, filterKeyword } = this.state;
     return (
       <div style={{ overflowX: "auto", overflowY : "auto"}}>
         <h3>Event List</h3>
@@ -160,7 +148,11 @@ export default class EventList extends Component {
           <thead className="thead-light">
             <tr>{this.eventListHead()}</tr>
           </thead>
-          <tbody>{this.eventListBody()}</tbody>
+            <tbody>  
+              {events.map((currentEvent) => (
+               <Event event={currentEvent} key={currentEvent._id} onEventDeleted={this.fetchEvents.bind(this)}/>
+              ))}
+            </tbody>
         </table>
       </div>
     );

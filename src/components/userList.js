@@ -3,7 +3,6 @@ import axios from "axios";
 import UpdateUserForm from "./UpdateUserForm";
 import AddUserForm from "./AddUserForm";
 
-
 class User extends Component {
   constructor(props) {
     super(props);
