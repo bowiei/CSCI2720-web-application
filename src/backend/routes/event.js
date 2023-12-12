@@ -17,7 +17,10 @@ router.route("/add").post((req, res) => {
   const title = req.body.title;
   const progtimee = req.body.progtimee;
   const date = req.body.date;
-  const venue = req.body.venue;
+  const venueID = req.body.venue['venueID'];
+  const address = req.body.venue['address'];
+  const latitude = req.body.venue['latitude'];
+  const longitude = req.body.venue['longitude'];
   const price = req.body.price;
   const description = req.body.description;
   const presenterorge = req.body.presenterorge;
@@ -27,7 +30,12 @@ router.route("/add").post((req, res) => {
     title,
     progtimee,
     date,
-    venue,
+    venue: {
+      venueID,
+      address,
+      latitude,
+      longitude,
+    },
     price,
     description,
     presenterorge,
@@ -48,20 +56,23 @@ router.route("/:eventID").get((req, res) => {
 
 // Update a specific event by ID
 router.route("/update/:eventID").put((req, res) => {
-  Event.findOne({ username: req.params.username })
+  Event.findOne({ eventID: req.params.eventID })
   .then((event) => {
-    event.eventID = req.params.id;
+    event.eventID = req.params.eventID;
     event.title = req.body.title;
     event.progtimee = req.body.progtimee;
     event.date = req.body.date;
-    event.venue = req.body.venue;
+    event.venue.venueID = req.body.venue['venueID'];
+    event.venue.address = req.body.venue['address'];
+    event.venue.latitude = req.body.venue['latitude'];
+    event.venue.longitude = req.body.venue['longitude'];
     event.price = req.body.price;
     event.description = req.body.description;
     event.presenterorge = req.body.presenterorge;
     
     event
       .save()
-      .then(() => res.json("User updated!"))
+      .then(() => res.json("Event updated!"))
       .catch((err) => res.status(400).json("Error: " + err));
   })
 });

@@ -14,38 +14,57 @@ class AddEventForm extends Component {
             price: "",
             description: "",
             presenterorge: "",
+            venueList: [],
         };
     }
 
-    handleInputChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-
-    handleAdd = (event) => {
-        event.preventDefault();
-    
-
-    const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
-    const newEvent = {
-        eventID,
-        title,
-        progtimee,
-        date,
-        venue,
-        price,
-        description,
-        presenterorge,
-    };
-
-    axios
-        .put(`http://localhost:5500/event/add`, newEvent)
+    componentDidMount() {
+        axios
+        .get(`http://localhost:5500/venue`)
         .then((response) => {
-        console.log(response.data);
-        this.props.onUserAdded();
+            this.setState({ venueList: response.data });
         })
-        .catch((error) => {
-        console.log(error);
-        });
+    }
+
+    handleInputChange = (event) => {
+        const { name, value } = event.target;
+        if (name === "venue") {
+            const selectedVenue = this.state.venueList.find((venue) => venue.address === value);
+            this.setState({ venue: selectedVenue });
+        } else {
+            this.setState({ [name]: value });
+        }
+    };
+
+    handleEventAdd = (event) => {
+        event.preventDefault();
+
+        const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
+        const newEvent = {
+            eventID: eventID,
+            title: title,
+            progtimee: progtimee,
+            date: date,
+            venue: {
+                venueID: venue.venueID,
+                address: venue.address,
+                longitude: venue.longitude,
+                latitude: venue.latitude,
+            },
+            price: price,
+            description: description,
+            presenterorge: presenterorge,
+        };
+
+        axios
+            .post(`http://localhost:5500/event/add`, newEvent)
+            .then((response) => {
+            console.log(response.data);
+            this.props.onEventAdded();
+            })
+            .catch((error) => {
+            console.log(error);
+            });
     };
 
     render() {
@@ -74,10 +93,19 @@ class AddEventForm extends Component {
                 <input type="text" className="form-control" id="date" name="date" 
                 value={date} required onChange={this.handleInputChange}/>
             </div>
-                <div className="form-group">
+            <div className="form-group">
                 <label htmlFor="venue">Venue *</label>
-                <input type="text" className="form-control" id="venue" name="venue" 
-                value={venue} required onChange={this.handleInputChange}/>
+                <select
+                    className="form-control" id="venue"  name="venue" value={venue.address} required 
+                    onChange={this.handleInputChange}
+                >
+                    <option value="">Select Venue</option>
+                    {this.state.venueList.map((venue) => (
+                    <option key={venue.id} value={venue.address}>
+                        {venue.address}
+                    </option>
+                    ))}
+                </select>
             </div>
             <div className="form-group">
                 <label htmlFor="price">Price *</label>
