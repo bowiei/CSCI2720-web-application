@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import SearchBar from "./searchbar";
 //User Task1
 class LocationTable extends Component {
   constructor(props) {
@@ -38,6 +39,15 @@ class LocationTable extends Component {
     this.setState({ venues: filteredVenues });
   };
 
+  handleReset = () => {
+    // Refetch the data again and reset the state
+    this.fetchVenues();
+    this.setState({
+      filterKeyword: "",
+      sortByEvent: 1,
+    });
+  };
+
   handleSort = () => {
     // Sort the table based on the sortByEvent (asc or desc)
     const { venues, sortByEvent } = this.state;
@@ -52,15 +62,6 @@ class LocationTable extends Component {
     this.setState({ sortByEvent: this.state.sortByEvent * -1 });
   };
 
-  handleReset = () => {
-    // Refetch the data again and reset the state
-    this.fetchVenues();
-    this.setState({
-      filterKeyword: "",
-      sortByEvent: 1,
-    });
-  };
-
   handleLocationClick = (location) => {
     // Call the handleLocationSelect method from the App component to update the selected_location state
     console.log("Selected Location ID:(locationTable.js) " + location.toString());
@@ -68,16 +69,13 @@ class LocationTable extends Component {
   };
 
   render() {
-    const { venues, filterKeyword, sortByEvent } = this.state;
+    const { venues, filterKeyword } = this.state;
     // const { handleLocationSelect } = this.props;
-    return (
-      <div>
+      return (
         <div>
-          <input type="text" value={filterKeyword} onChange={this.handleInputChange} placeholder="Search address by keywords" className="w-25" />
-          <button onClick={this.handleFilter}>Filter</button>
-          <button onClick={this.handleSort}>Sort</button>
-          <button onClick={this.handleReset}>Reset</button>
-        </div>
+          <SearchBar filterKeyword={filterKeyword} handleInputChange={this.handleInputChange} 
+          handleFilter={this.handleFilter} handleReset={this.handleReset}
+          placeholderText="Search location(s) by keywords"/>
         <table className="table">
           <thead>
             <tr>
