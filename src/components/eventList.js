@@ -4,8 +4,6 @@ import UpdateEventForm from "./UpdateEventForm";
 import AddEventForm from "./AddEventForm";
 import SearchBar from "./searchbar";
 
-
-
 class Event extends Component {
   constructor(props) {
     super(props);

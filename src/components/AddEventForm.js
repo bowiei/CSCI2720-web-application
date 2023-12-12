@@ -14,7 +14,16 @@ class AddEventForm extends Component {
             price: "",
             description: "",
             presenterorge: "",
+            venueList: [],
         };
+    }
+
+    componentDidMount() {
+        axios
+        .get(`http://localhost:5500/venue`)
+        .then((response) => {
+            this.setState({ venueList: response.data });
+        })
     }
 
     handleInputChange = (event) => {
@@ -24,7 +33,6 @@ class AddEventForm extends Component {
     handleAdd = (event) => {
         event.preventDefault();
     
-
     const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
     const newEvent = {
         eventID,
@@ -74,6 +82,49 @@ class AddEventForm extends Component {
                 <input type="text" className="form-control" id="date" name="date" 
                 value={date} required onChange={this.handleInputChange}/>
             </div>
+            <div className="form-group">
+                <label htmlFor="venue">Venue *</label>
+                <select
+                    className="form-control" id="address" value={venue} required 
+                    onChange={(event) => this.setState({ venue: event.target.value })}
+                >
+                    <option value="">Select Venue</option>
+                    {this.state.venueList.map((venue) => (
+                    <option key={venue.id} value={venue.address}>
+                        {venue.address}
+                    </option>
+                    ))}
+                </select>
+            </div>
+            {venue && (
+            <div className="form-group">
+                <label htmlFor="venueID">Venue ID</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="venueID"
+                    value={this.state.venueList.find((v) => v.address === venue).venueID}
+                    disabled
+                />
+                <label htmlFor="venueDetails">Venue ID</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="latitude"
+                    value={this.state.venueList.find((v) => v.address === venue).latitude}
+                    disabled
+                />
+                <label htmlFor="venueDetails">Venue ID</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="longitude"
+                    value={this.state.venueList.find((v) => v.address === venue).longitude}
+                    disabled
+                />
+            </div>
+            )}
+
                 <div className="form-group">
                 <label htmlFor="venue">Venue *</label>
                 <input type="text" className="form-control" id="venue" name="venue" 
