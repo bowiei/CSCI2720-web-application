@@ -162,7 +162,7 @@ export default class EventList extends Component {
               </thead>
               <tbody className="thead-light">
                 <td>
-                  <AddEventForm event={events} onUserAdded={this.handleEventAdded} onCancel={() => this.setState({ isAdding: false })} />
+                  <AddEventForm event={events} onEventAdded={this.handleEventAdded} onCancel={() => this.setState({ isAdding: false })} />
                 </td>
               </tbody>
             </table>

@@ -27,33 +27,44 @@ class AddEventForm extends Component {
     }
 
     handleInputChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
+        const { name, value } = event.target;
+        if (name === "venue") {
+            const selectedVenue = this.state.venueList.find((venue) => venue.address === value);
+            this.setState({ venue: selectedVenue });
+        } else {
+            this.setState({ [name]: value });
+        }
     };
 
-    handleAdd = (event) => {
+    handleEventAdd = (event) => {
         event.preventDefault();
-    
-    const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
-    const newEvent = {
-        eventID,
-        title,
-        progtimee,
-        date,
-        venue,
-        price,
-        description,
-        presenterorge,
-    };
 
-    axios
-        .put(`http://localhost:5500/event/add`, newEvent)
-        .then((response) => {
-        console.log(response.data);
-        this.props.onUserAdded();
-        })
-        .catch((error) => {
-        console.log(error);
-        });
+        const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
+        const newEvent = {
+            eventID: eventID,
+            title: title,
+            progtimee: progtimee,
+            date: date,
+            venue: {
+                venueID: venue.venueID,
+                address: venue.address,
+                longitude: venue.longitude,
+                latitude: venue.latitude,
+            },
+            price: price,
+            description: description,
+            presenterorge: presenterorge,
+        };
+
+        axios
+            .post(`http://localhost:5500/event/add`, newEvent)
+            .then((response) => {
+            console.log(response.data);
+            this.props.onEventAdded();
+            })
+            .catch((error) => {
+            console.log(error);
+            });
     };
 
     render() {
@@ -85,8 +96,8 @@ class AddEventForm extends Component {
             <div className="form-group">
                 <label htmlFor="venue">Venue *</label>
                 <select
-                    className="form-control" id="address" value={venue} required 
-                    onChange={(event) => this.setState({ venue: event.target.value })}
+                    className="form-control" id="venue"  name="venue" value={venue.address} required 
+                    onChange={this.handleInputChange}
                 >
                     <option value="">Select Venue</option>
                     {this.state.venueList.map((venue) => (
@@ -95,40 +106,6 @@ class AddEventForm extends Component {
                     </option>
                     ))}
                 </select>
-            </div>
-            {venue && (
-            <div className="form-group">
-                <label htmlFor="venueID">Venue ID</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="venueID"
-                    value={this.state.venueList.find((v) => v.address === venue).venueID}
-                    disabled
-                />
-                <label htmlFor="venueDetails">Venue ID</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="latitude"
-                    value={this.state.venueList.find((v) => v.address === venue).latitude}
-                    disabled
-                />
-                <label htmlFor="venueDetails">Venue ID</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="longitude"
-                    value={this.state.venueList.find((v) => v.address === venue).longitude}
-                    disabled
-                />
-            </div>
-            )}
-
-                <div className="form-group">
-                <label htmlFor="venue">Venue *</label>
-                <input type="text" className="form-control" id="venue" name="venue" 
-                value={venue} required onChange={this.handleInputChange}/>
             </div>
             <div className="form-group">
                 <label htmlFor="price">Price *</label>

@@ -25,16 +25,32 @@ class UpdateEventForm extends Component {
         })
     }
 
-    handleUpdateUser = (event) => {
+    handleInputChange = (event) => {
+        const { name, value } = event.target;
+        if (name === "venue") {
+            const selectedVenue = this.state.venueList.find((venue) => venue.address === value);
+            this.setState({ venue: selectedVenue });
+        } else {
+            this.setState({ [name]: value });
+        }
+    };
+
+    handleEventUpdate = (event) => {
         event.preventDefault();
 
-        const { title, progtimee, date, venue, price, description, presenterorge } = this.state;
 
+        const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
         const updatedEvent = {
-            title: title, 
+            eventID: eventID,
+            title: title,
             progtimee: progtimee,
             date: date,
-            venue: venue,
+            venue: {
+                venueID: venue.venueID,
+                address: venue.address,
+                longitude: venue.longitude,
+                latitude: venue.latitude,
+            },
             price: price,
             description: description,
             presenterorge: presenterorge,
@@ -44,7 +60,7 @@ class UpdateEventForm extends Component {
         .put(`http://localhost:5500/event/update/${this.props.event.eventID}`, updatedEvent)
         .then((response) => {
             console.log(response.data);
-            this.props.onUserUpdated();
+            this.props.onEventUpdated();
             // Perform any additional actions after successful update
         })
         .catch((error) => {
@@ -57,61 +73,34 @@ class UpdateEventForm extends Component {
     render() {
         const { title, progtimee, date, venue, price, description, presenterorge } = this.state;
         const { event, onCancel } = this.props;
-        console.log(this.state.venueList)
+
         return (
-            <form onSubmit={this.handleUpdateUser}>
+            <form onSubmit={this.handleEventUpdate}>
                 <div className="form-group">
                     <label htmlFor="eventID">Event ID</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="eventID"
-                        value={event.eventID}
-                        disabled
-                        onChange={(event) => this.setState({ title: event.target.value })}
-                    />
+                    <input type="text" className="form-control" id="eventID" name="eventID" 
+                    value={event.eventID} disabled/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="title">Title *</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        value={title}
-                        required
-                        onChange={(event) => this.setState({ title: event.target.value })}
-                    />
+                    <input type="text" className="form-control" id="title" name="title" 
+                    value={title} required onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="progtimee">Program Time *</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="progtimee"
-                        value={progtimee}
-                        required
-                        onChange={(event) => this.setState({ progtimee: event.target.value })}
-                    />
+                    <input type="text" className="form-control" id="progtimee" name="progtimee" 
+                    value={progtimee} required onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="date">Date *</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="date"
-                        value={date}
-                        required
-                        onChange={(event) => this.setState({ date: event.target.value })}
-                    />
+                    <input type="text" className="form-control" id="date" name="date" 
+                    value={date} required onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="venue">Venue *</label>
                     <select
-                        className="form-control"
-                        id="address"
-                        value={venue}
-                        required
-                        onChange={(event) => this.setState({ venue: event.target.value })}
+                        className="form-control" id="venue"  name="venue" value={venue.address} required 
+                        onChange={this.handleInputChange}
                     >
                         <option value="">Select Venue</option>
                         {this.state.venueList.map((venue) => (
@@ -121,68 +110,22 @@ class UpdateEventForm extends Component {
                         ))}
                     </select>
                 </div>
-                {venue && (
-                <div className="form-group">
-                    <label htmlFor="venueID">Venue ID</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="venueID"
-                        value={this.state.venueList.find((v) => v.address === venue).venueID}
-                        disabled
-                    />
-                    <label htmlFor="venueDetails">Venue ID</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="latitude"
-                        value={this.state.venueList.find((v) => v.address === venue).latitude}
-                        disabled
-                    />
-                    <label htmlFor="venueDetails">Venue ID</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="longitude"
-                        value={this.state.venueList.find((v) => v.address === venue).longitude}
-                        disabled
-                    />
-                </div>
-                )}
                 <div className="form-group">
                     <label htmlFor="price">Price *</label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        id="price"
-                        value={price}
-                        required
-                        onChange={(event) => this.setState({ price: event.target.value })}
-                    />
+                    <input type="text" className="form-control" id="price" name="price" value={price} 
+                    required onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description *</label>
-                    <textarea
-                        className="form-control"
-                        id="description"
-                        value={description}
-                        required
-                        placeholder={description}
-                        onChange={(event) => this.setState({ description: event.target.value })}
-                    />
+                    <textarea className="form-control" id="description" name="description"  value={description} 
+                    required onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="presenterorge">Presenter/Organization *</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="presenterorge"
-                        value={presenterorge}
-                        required
-                        onChange={(event) => this.setState({ presenterorge: event.target.value })}
+                    <input type="text" className="form-control" id="presenterorge" name="presenterorge" value={presenterorge} required onChange={this.handleInputChange}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary"> Update </button>
+                <button type="submit" className="btn btn-primary"> Update Event </button>
                 <button type="button" className="btn btn-secondary" onClick={onCancel}> Cancel </button>
             </form>
         );
