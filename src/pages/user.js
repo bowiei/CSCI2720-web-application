@@ -88,9 +88,12 @@ class UserPage extends React.Component {
   render() {
     return (
       <div>
+        <div div class="sidebar">
+          <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
+        </div>
         <div style={mapstyle} className="card d-inline-block m-2">
           <Mapp center={this.state.centeMap} />
-          <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
+          <seperateView selectedLocation={this.state.selected_location} venuedetails={this.state.venue_details}/>
         </div>
         {/* another form for user comment */}
         {/* <Action name="user Comment" /> */}
