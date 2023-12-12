@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UpdateUserForm from "./UpdateUserForm";
+import AddUserForm from "./AddUserForm";
+
 
 class User extends Component {
   constructor(props) {
@@ -20,6 +22,10 @@ class User extends Component {
   };
 
   handleDeleteUser = () => {
+    const confirmed = window.confirm('Are you sure you want to delete this user?');
+    if (!confirmed) {
+      return;
+    }
     axios
       .delete(`http://localhost:5500/user/delete/${this.props.user.username}`)
       .then((response) => {
@@ -36,6 +42,7 @@ class User extends Component {
   render() {
     const { user } = this.props;
     const { isEditing } = this.state;
+    
 
     return (
       <tr>
@@ -66,6 +73,7 @@ class UserList extends Component {
 
     this.state = {
       users: [],
+      isAdding: false,
     };
   };
 
@@ -90,19 +98,59 @@ class UserList extends Component {
     });
   }
 
+  handleUserAdded = () => {
+    this.setState({ isAdding: false });
+  };
+
+  handleAddClick = () => {
+    this.setState({ isAdding: true });
+  }
+
   render() {
+    const { isAdding } = this.state;
+    const { user } = this.props;
+
     return (
       <div>
         <h3>User List</h3>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Username</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody className="thead-light">{this.userList()}</tbody>
-        </table>
+        {isAdding ? (
+          <div>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th colSpan={2}>Actions</th>
+                </tr>
+              </thead>
+              <tbody className="thead-light">
+                <td colSpan="4">
+                  <AddUserForm user={user} onUserAdded={this.handleUserAdded} onCancel={() => this.setState({ isAdding: false })} />
+                </td>
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th colSpan={2}>Actions</th>
+                </tr>
+              </thead>
+              <tbody className="thead-light">
+                {this.userList()}
+                <tr>
+                  <td colSpan="4" style={{ textAlign: "center"}}>
+                    <button onClick={this.handleAddClick}> Add </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     );
   }

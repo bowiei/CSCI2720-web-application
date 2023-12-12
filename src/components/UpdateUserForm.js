@@ -52,7 +52,7 @@ class UpdateUserForm extends Component {
           <input type="text" className="form-control" id="username" value={user.username} disabled />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">New Password</label>
           <input
             type="password"
             className="form-control"

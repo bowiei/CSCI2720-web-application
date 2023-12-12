@@ -30,6 +30,23 @@ router.route("/register").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/register").put((req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const role = req.body.role || "user"; // Default role is "user" if not provided
+
+  const newUser = new User({
+    username,
+    password,
+    role,
+  });
+
+  newUser
+    .save()
+    .then(() => res.json("User registered!"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 // Read a specific user by username
 router.route("/:username").get((req, res) => {
   User.findOne({ username: req.params.username })
@@ -57,7 +74,8 @@ router.route("/update/:username").put((req, res) => {
     .then((user) => {
       user.username = req.params.username;
       user.password = req.body.password;
-
+      user.role = req.body.role;
+      
       user
         .save()
         .then(() => res.json("User updated!"))
