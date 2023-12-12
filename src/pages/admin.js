@@ -6,7 +6,6 @@ class AdminPage extends React.Component {
     render() {
         return (
             <div>
-                <Header name="Admin Page"/>
                 <Action/>
             </div>
         );

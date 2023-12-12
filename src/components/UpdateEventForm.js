@@ -21,8 +21,6 @@ class UpdateEventForm extends Component {
 
         const { title, progtimee, date, venue, price, description, presenterorge } = this.state;
 
-        // verify by ticking the checkbox
-
         const updatedEvent = {
             title: title, 
             progtimee: progtimee,
@@ -41,6 +39,7 @@ class UpdateEventForm extends Component {
             // Perform any additional actions after successful update
         })
         .catch((error) => {
+            console.log(updatedEvent);
             console.log(error);
             // Handle error cases
         });
@@ -69,7 +68,7 @@ class UpdateEventForm extends Component {
                         className="form-control"
                         id="title"
                         value={title}
-                        disabled
+                        required
                         onChange={(event) => this.setState({ title: event.target.value })}
                     />
                 </div>
@@ -124,6 +123,7 @@ class UpdateEventForm extends Component {
                         id="description"
                         value={description}
                         required
+                        placeholder={description}
                         onChange={(event) => this.setState({ description: event.target.value })}
                     />
                 </div>
@@ -144,4 +144,5 @@ class UpdateEventForm extends Component {
         );
     }
 }
+
 export default UpdateEventForm;

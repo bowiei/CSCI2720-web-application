@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import SearchBar from "./searchbar";
 import UpdateEventForm from "./UpdateEventForm";
+import AddEventForm from "./AddEventForm";
+import SearchBar from "./searchbar";
+
+
 
 class Event extends Component {
   constructor(props) {
@@ -90,6 +93,7 @@ export default class EventList extends Component {
     super(props);
     this.state = {
       events: [],
+      isAdding: false,
       filterKeyword: "",
       td: ["eventID", "title", "prog time", "date", "venueID", "address", "latitude & longitude", "price", "description", "presenterorge", "Actions"],
     };
@@ -116,6 +120,14 @@ export default class EventList extends Component {
     });
   }
 
+  handleEventAdded = () => {
+    this.setState({ isAdding: false });
+  };
+
+  handleAddClick = () => {
+    this.setState({ isAdding: true });
+  }
+
   handleInputChange = (e) => {
     this.setState({ filterKeyword: e.target.value });
   };
@@ -136,24 +148,49 @@ export default class EventList extends Component {
   };
 
   render() {
+    const { isAdding } = this.state;
     const { events, filterKeyword } = this.state;
+
     return (
       <div style={{ overflowX: "auto", overflowY : "auto"}}>
         <h3>Event List</h3>
-        <SearchBar filterKeyword={filterKeyword} handleInputChange={this.handleInputChange} 
-          handleFilter={this.handleFilter} handleReset={this.handleReset} 
-          placeholderText="Search event(s) by tilte"/>
-        <button onClick={this.handleAddClick}> Add events </button>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>{this.eventListHead()}</tr>
-          </thead>
-            <tbody>  
-              {events.map((currentEvent) => (
-               <Event event={currentEvent} key={currentEvent._id} onEventDeleted={this.fetchEvents.bind(this)}/>
-              ))}
-            </tbody>
-        </table>
+        {isAdding ? (
+          <div>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th> Add New Events </th>
+                </tr>
+              </thead>
+              <tbody className="thead-light">
+                <td>
+                  <AddEventForm event={events} onUserAdded={this.handleEventAdded} onCancel={() => this.setState({ isAdding: false })} />
+                </td>
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div>
+            <SearchBar filterKeyword={filterKeyword} handleInputChange={this.handleInputChange} 
+              handleFilter={this.handleFilter} handleReset={this.handleReset} 
+              placeholderText="Search event(s) by tilte"/>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <td colSpan="4">
+                    <button onClick={this.handleAddClick}> Add new event </button>
+                  </td>
+                </tr> 
+                <tr>{this.eventListHead()}</tr>
+              </thead>
+              <tbody className="thead-light">
+                {events.map((currentEvent) => (
+                  <Event event={currentEvent} key={currentEvent._id} onEventDeleted={this.fetchEvents.bind(this)}/>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     );
   }

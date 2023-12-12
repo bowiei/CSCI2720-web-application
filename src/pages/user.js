@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../components/header.js";
 import Action from "../components/action.js";
 import LocationTable from "../components/locationTable.js";
 import CommentList from "../components/comment.js";
@@ -90,7 +89,6 @@ class UserPage extends React.Component {
   render() {
     return (
       <div>
-        <Header name="User Page" user={this.props.user} />
         <div style={mapstyle} className="card d-inline-block m-2">
           <Mapp center={this.state.centeMap} />
           <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />

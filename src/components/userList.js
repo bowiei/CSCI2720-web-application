@@ -112,9 +112,9 @@ class UserList extends Component {
 
     return (
       <div>
-        <h3>User List</h3>
         {isAdding ? (
           <div>
+            <h3>User List</h3>
             <table className="table">
               <thead className="thead-light">
                 <tr>
@@ -129,7 +129,10 @@ class UserList extends Component {
             </table>
           </div>
         ) : (
-          <div>
+          <div>  
+            <h3>User List</h3>
+            <button onClick={this.handleAddClick}> Add new user </button>
+                 
             <table className="table">
               <thead className="thead-light">
                 <tr>
@@ -140,11 +143,6 @@ class UserList extends Component {
               </thead>
               <tbody className="thead-light">
                 {this.userList()}
-                <tr>
-                  <td colSpan="4" style={{ textAlign: "center"}}>
-                    <button onClick={this.handleAddClick}> Add </button>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>

@@ -47,7 +47,7 @@ router.route("/:eventID").get((req, res) => {
 });
 
 // Update a specific event by ID
-router.route("/update/:eventID").post((req, res) => {
+router.route("/update/:eventID").put((req, res) => {
   Event.findOne({ username: req.params.username })
   .then((event) => {
     event.eventID = req.params.id;

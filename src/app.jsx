@@ -9,41 +9,44 @@ import UserList from "./components/userList.js";
 import CommentSection from "./components/comment.js";
 import VenueList from "./components/venueList.js";
 import LocationTable from "./components/locationTable.js";
-
+import Header from "./components/header.js";
 class App extends React.Component {
 
   render() {
     return (
-      <Backgournd>
-        <BrowserRouter>
-          <div>
-            <ul>
-              <li>
-                <Link to="/"> Home </Link>
-              </li>
-              <li>
-                <Link to="/admin"> Admin Page </Link>
-              </li>
-              <li>
-                <Link to="/userList"> userList Page </Link>
-              </li>
-              <li>
-                <Link to="/CommentSection"> Comment Section </Link>
-              </li>
-              <li>
-                <Link to="/locationTable"> LocationTable </Link>
-              </li>
-            </ul>
-          </div>
-          <Routes>
-            <Route path="/" element={<UserPage user={this.props.user} />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/userList" element={<UserList />} />
-            <Route path="/CommentSection" element={<CommentSection />} />
-            <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
-          </Routes>
-        </BrowserRouter>
-      </Backgournd>
+      <div>
+        <Header name="Project Name"/>
+        <Backgournd>
+          <BrowserRouter>
+            <div>
+              <ul>
+                <li>
+                  <Link to="/"> Home </Link>
+                </li>
+                <li>
+                  <Link to="/admin"> Admin Page </Link>
+                </li>
+                <li>
+                  <Link to="/userList"> userList Page </Link>
+                </li>
+                <li>
+                  <Link to="/CommentSection"> Comment Section </Link>
+                </li>
+                <li>
+                  <Link to="/locationTable"> LocationTable </Link>
+                </li>
+              </ul>
+            </div>
+            <Routes>
+              <Route path="/" element={<UserPage user={this.props.user} />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/userList" element={<UserList />} />
+              <Route path="/CommentSection" element={<CommentSection />} />
+              <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
+            </Routes>
+          </BrowserRouter>
+        </Backgournd>
+      </div>
     );
   }
 }

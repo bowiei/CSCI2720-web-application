@@ -86,8 +86,8 @@ class AddEventForm extends Component {
             </div>
             <div className="form-group">
                 <label htmlFor="description">Description *</label>
-                <input type="text" className="form-control" id="description" name="description" 
-                value={description} required onChange={this.handleInputChange}/>
+                <textarea className="form-control" id="description" name="description"  value={description} 
+                required onChange={this.handleInputChange}/>
             </div>
             <div className="form-group">
                 <label htmlFor="presenterorge">Presenter/Organization *</label>

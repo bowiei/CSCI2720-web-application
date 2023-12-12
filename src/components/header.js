@@ -1,18 +1,26 @@
 import React from 'react';
 
-class Title extends React.Component {
+class Header extends React.Component {
     render() {
         return (
-            <header className="bg-warning">
-            <h1 className="display-4 text-center">{this.props.name}</h1> </header>
-        ); 
-    }
-}
-
-class Header extends React.Component{
-    render(){
-        return (
-            <Title name={this.props.name} />
+            <header className="bg-warning" style={ {height: '75px', width: '100%'}}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8">
+                            <h1 className="display-6">{this.props.name}</h1>
+                        </div>
+                        <div className="col-md-1">
+                            <h3>Login Avatar</h3>
+                        </div>
+                        <div className="col-md-1">
+                            <h3>Login Name</h3>
+                        </div>
+                        <div className="col-md-2">
+                            <h3>Logout btn</h3>
+                        </div>
+                    </div>
+                </div>
+            </header>
         );
     }
 }
