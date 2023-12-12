@@ -44,24 +44,26 @@ class AddUserForm extends Component {
     return (
         <form onSubmit={this.handleUserAdd}>
             <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Username *</label>
                 <input
                 type="text"
                 className="form-control"
                 id="username"
                 name="username"
                 value={username}
+                required
                 onChange={this.handleInputChange}
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Password *</label>
                 <input
                 type="password"
                 className="form-control"
                 id="password"
                 name="password"
                 value={password}
+                required
                 onChange={this.handleInputChange}
                 />
             </div>

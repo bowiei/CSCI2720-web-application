@@ -48,6 +48,7 @@ class User extends Component {
       <tr>
         {isEditing ? (
           <td colSpan="4">
+            <h4> Edit {user.username} </h4>
             <UpdateUserForm user={user} onUserUpdated={this.handleUserUpdated} onCancel={() => this.setState({ isEditing: false })} />
           </td>
         ) : (
@@ -118,9 +119,7 @@ class UserList extends Component {
             <table className="table">
               <thead className="thead-light">
                 <tr>
-                  <th>Username</th>
-                  <th>Role</th>
-                  <th colSpan={2}>Actions</th>
+                  <th> Add New User </th>
                 </tr>
               </thead>
               <tbody className="thead-light">

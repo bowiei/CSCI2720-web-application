@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/header.js";
-import Form from "../components/form.js";
+import Action from "../components/action.js";
 import LocationTable from "../components/locationTable.js";
 import CommentList from "../components/comment.js";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
@@ -95,7 +95,7 @@ class UserPage extends React.Component {
           <Mapp center={this.state.centeMap} />
           <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
         </div>
-        <Form name="user Comment" />
+        <Action name="user Comment" />
       </div>
     );
   }

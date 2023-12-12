@@ -11,7 +11,7 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Create a new event
+// Create a new event need check
 router.route("/add").post((req, res) => {
   const eventID = req.body.eventID;
   const title = req.body.title;
@@ -39,46 +39,38 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// Read a specific event by ID
-router.route("/:id").get((req, res) => {
-  Event.findById(req.params.id)
+// Read a specific event by ID ,done 
+router.route("/:eventID").get((req, res) => {
+  Event.findOne( { eventID : req.params.eventID })
     .then((event) => res.json(event))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 // Update a specific event by ID
-router.route("/update/:id").post((req, res) => {
-  const eventID = req.params.id;
-  const title = req.body.title;
-  const progtimee = req.body.progtimee;
-  const date = req.body.date;
-  const venue = req.body.venue;
-  const price = req.body.price;
-  const description = req.body.description;
-  const presenterorge = req.body.presenterorge;
-
-  Event.findByIdAndUpdate(
-    eventID,
-    {
-      title,
-      progtimee,
-      date,
-      venue,
-      price,
-      description,
-      presenterorge,
-    },
-    { new: true }
-  )
-    .then(() => res.json("Event updated!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+router.route("/update/:eventID").post((req, res) => {
+  Event.findOne({ username: req.params.username })
+  .then((event) => {
+    event.eventID = req.params.id;
+    event.title = req.body.title;
+    event.progtimee = req.body.progtimee;
+    event.date = req.body.date;
+    event.venue = req.body.venue;
+    event.price = req.body.price;
+    event.description = req.body.description;
+    event.presenterorge = req.body.presenterorge;
+    
+    event
+      .save()
+      .then(() => res.json("User updated!"))
+      .catch((err) => res.status(400).json("Error: " + err));
+  })
 });
 
 // Delete a specific event by ID
-router.route("/delete/:id").delete((req, res) => {
-  Event.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Event deleted."))
-    .catch((err) => res.status(400).json("Error: " + err));
+router.route("/delete/:eventID").delete((req, res) => {
+  Event.findOneAndDelete({ eventID: req.params.eventID })
+  .then(() => res.json("Event deleted: " + req.params.eventID))
+  .catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;

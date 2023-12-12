@@ -22,7 +22,7 @@ class App extends React.Component {
                 <Link to="/"> Home </Link>
               </li>
               <li>
-                <Link to="/form"> Admin Page </Link>
+                <Link to="/admin"> Admin Page </Link>
               </li>
               <li>
                 <Link to="/userList"> userList Page </Link>
@@ -37,7 +37,7 @@ class App extends React.Component {
           </div>
           <Routes>
             <Route path="/" element={<UserPage user={this.props.user} />} />
-            <Route path="/form" element={<AdminPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/userList" element={<UserList />} />
             <Route path="/CommentSection" element={<CommentSection />} />
             <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
@@ -55,7 +55,7 @@ const Backgournd = styled.div`
     width: 100vw;
     height: 100vh;
     background-color = #eee;
-    overflow: hidden;
+    // overflow: hidden;
     display : flex;
     // justify-content: space-around;
     // margin-top: 50px

@@ -49,30 +49,38 @@ class UpdateUserForm extends Component {
       <form onSubmit={this.handleUpdateUser}>
         <div className="form-group">
           <label htmlFor="username">Username</label>
-          <input type="text" className="form-control" id="username" value={user.username} disabled />
+          <input 
+            type="text" 
+            className="form-control" 
+            id="username" 
+            value={user.username} 
+            disabled 
+          />
         </div>
         <div className="form-group">
-          <label htmlFor="password">New Password</label>
+          <label htmlFor="password">New Password *</label>
           <input
             type="password"
             className="form-control"
             id="password"
             value={password}
+            required
             onChange={(event) => this.setState({ password: event.target.value })}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+          <label htmlFor="confirmPassword">Confirm Password *</label>
           <input
             type="password"
             className="form-control"
             id="confirmPassword"
             value={confirmPassword}
+            required
             onChange={(event) => this.setState({ confirmPassword: event.target.value })}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="role">Role</label>
+          <label htmlFor="role">Role *</label>
           <div className="form-check">
             <input
               className="form-check-input"
@@ -81,6 +89,7 @@ class UpdateUserForm extends Component {
               id="userRole"
               value="user"
               checked={role === "user"}
+              required
               onChange={() => this.setState({ role: "user" })}
             />
             <label className="form-check-label" htmlFor="userRole">
