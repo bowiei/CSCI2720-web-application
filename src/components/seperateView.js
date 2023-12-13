@@ -1,15 +1,14 @@
-import React,{useState,useRef,useEffect} from "react";
+import React from "react";
 import axios from "axios";
-import Eventblock from "./eventCard";
-import Locationblock from "./locationCard";
 import Map from '../components/map';
-const viewstyle = {
-    display: "inline-block",
-    margin: "1%",
-    border: "2px solid black",
-    width: "75vw",
-    background: "gray",
-};
+
+// const viewstyle = {
+//     display: "inline-block",
+//     margin: "1%",
+//     border: "2px solid black",
+//     width: "75vw",
+//     background: "gray",
+// };
 
 // const venuestyle={
 //     weight:"30vw",
@@ -22,13 +21,13 @@ const viewstyle = {
 //     margin: "1%",
 // }
 
-const commentstyleblock={
-    display: "inline-block",
-    margin: "1%",
-    border: "2px solid black",
-    width: "20vw",
-    background: "gray",
-}
+// const commentstyleblock={
+//     display: "inline-block",
+//     margin: "1%",
+//     border: "2px solid black",
+//     width: "20vw",
+//     background: "gray",
+// }
 
 
 // Eventblock -> EventCard
