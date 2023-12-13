@@ -1,5 +1,6 @@
 import React from "react";
 import LocationTable from "../components/locationTable.js";
+import SeperateView from "../components/seperateView.js";
 import CommentList from "../components/comment.js";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
@@ -93,8 +94,9 @@ class UserPage extends React.Component {
         </div>
         <div style={mapstyle} className="card d-inline-block m-2">
           <Mapp center={this.state.centeMap} />
-          <seperateView selectedLocation={this.state.selected_location} venuedetails={this.state.venue_details}/>
         </div>
+        <SeperateView selectedLocation={this.state.selected_location} venuedetails={this.state.venue_details}/>
+
         {/* another form for user comment */}
         {/* <Action name="user Comment" /> */}
       </div>
