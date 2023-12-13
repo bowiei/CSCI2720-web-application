@@ -1,5 +1,5 @@
 import React from "react";
-
+import SeperateView from "../components/seperateView";
 class UserPage extends React.Component {
   constructor(props) {
     super(props);
@@ -16,11 +16,7 @@ class UserPage extends React.Component {
     return (
       <>
         <div>
-          <div className="card">
-            <div className="card-body">
-              Here is the home page.
-            </div>
-          </div>
+          <SeperateView/>
         </div>
       </>
     );

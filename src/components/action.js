@@ -12,16 +12,15 @@ class Action extends React.Component {
     );
   }
 }
-
 class ActionDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "", form: "" };
   }
 
-  handleSelectionChange = (event) => {
-    this.setState({ value: event.target.value });
-    switch (event.target.value) {
+  handleSelectionChange = (value) => {
+    this.setState({ value });
+    switch (value) {
       case "CRUD Event":
         this.setState({ form: <EventList /> });
         break;
@@ -35,27 +34,24 @@ class ActionDropdown extends React.Component {
   };
 
   render() {
-    return (
-      <div>
-        <select value={this.state.value} onChange={this.handleSelectionChange}>
-          <option value=""> --- </option>
-          <option value="CRUD Event">CRUD Event</option>
-          <option value="CRUD User">CRUD User</option>
-        </select>
-        <br></br>
-        {this.state.form}
-      </div>
-    );
-  }
-}
+    const { value, form } = this.state;
 
-class Remindertext extends React.Component {
-  render() {
     return (
       <div>
-        <small>
-          <p>{this.props.reminder}</p>
-        </small>
+        <button
+          onClick={() => this.handleSelectionChange("CRUD Event")}
+          disabled={value === "CRUD Event"}
+        >
+          CRUD Event
+        </button>
+        <button
+          onClick={() => this.handleSelectionChange("CRUD User")}
+          disabled={value === "CRUD User"}
+        >
+          CRUD User
+        </button>
+        <br />
+        {form}
       </div>
     );
   }

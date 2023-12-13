@@ -23,9 +23,6 @@ class Sidebar extends React.Component {
                     <li>
                         <Link to="/locationTable">Location Table</Link>
                     </li>
-                    <li>
-                        <Link to="/Map">Event Map</Link>
-                    </li>
                 </ul>
             </div>
         </>
@@ -38,5 +35,4 @@ export default Sidebar;
 const sideBar = {
     backgroundColor: "lightgrey",
     height: "100%"
-
 }

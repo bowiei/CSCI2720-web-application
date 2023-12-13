@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Sidebar from "./layout/sidebar";
+import Sidebar from "./components/sidebar";
 import UserPage from "./pages/user";
 import AdminPage from "./pages/admin";
 import UserList from "./components/userList";
 import CommentSection from "./components/comment";
 import LocationTable from "./components/locationTable";
-import MiddleBox from "./layout/middlebox";
 import Header from "./components/header";
 
 class App extends React.Component {
@@ -27,7 +26,6 @@ class App extends React.Component {
                   <Route path="/userList" element={<UserList />} />
                   <Route path="/commentSection" element={<CommentSection />} />
                   <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
-                  <Route path="/Map" element={<MiddleBox/>} />
                 </Routes>
               </div>
             </div>
