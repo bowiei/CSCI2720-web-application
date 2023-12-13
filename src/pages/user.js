@@ -12,14 +12,11 @@ const mapstyle = {
   width: "75vw",
   background: "gray",
 };
-
 const mapContainerStyle = {
   display: "inline-block",
-  justifyContent: "center",
-  alignItems: "center",
   margin: "1%",
-  border: "3px solid black",
-  width: "98%",
+  border: "2px solid black",
+  width: "49vw",
   height: "40vh",
 };
 
@@ -90,69 +87,17 @@ class UserPage extends React.Component {
 
   render() {
     return (
-// <<<<<<< layout
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <h3> Navigation </h3>
-            <div class="card">
-              <div class="card-body">
-               test
-              </div>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="row">
-              <div style={mapstyle} className="card d-inline-block m-2">
-                <Mapp center={this.state.centeMap} />
-                <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    Add Comment 4c
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    Loc details 4b
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br></br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    Show Comment 4c
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    test4 
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-// =======
-//       <div>
-//         <div div class="sidebar">
-//           <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
-//         </div>
-//         <div style={mapstyle} className="card d-inline-block m-2">
-//           <Mapp center={this.state.centeMap} />
-//           <seperateView selectedLocation={this.state.selected_location} venuedetails={this.state.venue_details}/>
-// >>>>>>> main
+      <div>
+        <div div class="sidebar">
+          <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
         </div>
-    </div>
+        <div style={mapstyle} className="card d-inline-block m-2">
+          <Mapp center={this.state.centeMap} />
+          <seperateView selectedLocation={this.state.selected_location} venuedetails={this.state.venue_details}/>
+        </div>
+        {/* another form for user comment */}
+        {/* <Action name="user Comment" /> */}
+      </div>
     );
   }
 }

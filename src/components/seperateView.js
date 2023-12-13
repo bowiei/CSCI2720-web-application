@@ -12,9 +12,9 @@ const venuestyle={
     overflow: "auto",
 }
 
-const eventlist=(list)=>{
+const Eventlist=(props)=>{
     var arr,i=0;
-    list.map((u)=>{
+    props.list.map((u)=>{
         axios.get(`http://localhost:5500/event/${u}`)
         .then((res)=>{arr[i++]=data;
         return (
@@ -25,7 +25,7 @@ const eventlist=(list)=>{
                 <p>Price: ${res.data.price}</p>
                 <p>Description: {res.data.discription}</p>
                 <p>Presenterorge: {res.data.presenterorge}</p>
-            </div>)
+            </div>);
             }
         )
     })
@@ -52,7 +52,7 @@ class seperateView extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            eventlist:[]
+            
         }
     }
 
@@ -61,7 +61,7 @@ class seperateView extends React.Component{
             <div style={viewstyle} className="card d-inline-block m-2">
                 <div>{this.props.address}</div>
                 <div style={venuestyle}>
-                    <eventlist list={this.props.events}/>   
+                    <Eventlist  list={this.props.events}/>
                 </div>
             </div>
         )
