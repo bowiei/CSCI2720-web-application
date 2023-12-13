@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "./searchbar";
+import FavoriteList from "./FavoriteList";
 //User Task1
 class LocationTable extends Component {
   constructor(props) {
@@ -46,6 +47,25 @@ class LocationTable extends Component {
       filterKeyword: "",
       sortByEvent: 1,
     });
+  };
+  
+  handleLike = (venue) => {
+    const { favoritevenues } = this.state;
+    const isVenueAdded = favoritevenues.some((favVenue) => favVenue === venue);
+
+    if (!isVenueAdded) {
+      const updatedFavoriteVenues = [...favoritevenues, venue];
+      this.setState(
+        {
+          favoritevenues: updatedFavoriteVenues,
+        },
+        () => {
+          localStorage.setItem('favoritevenues', JSON.stringify(updatedFavoriteVenues));
+        }
+      );
+    } else {
+      console.log('Venue already added');
+    }
   };
 
   handleSort = () => {
@@ -98,6 +118,7 @@ class LocationTable extends Component {
             ))}
           </tbody>
         </table>
+             <FavoriteList favoritevenues={this.state.favoritevenues} />
       </div>
     );
   }
