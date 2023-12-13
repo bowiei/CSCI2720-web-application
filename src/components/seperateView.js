@@ -96,4 +96,6 @@ class SeperateView extends React.Component{
     }
 }
 
+
+
 export default SeperateView;
