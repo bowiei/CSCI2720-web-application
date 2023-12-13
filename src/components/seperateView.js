@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useState,useRef,useEffect} from "react";
+import axios from "axios";
 
 const viewstyle = {
     display: "inline-block",
@@ -9,65 +10,90 @@ const viewstyle = {
 };
 
 const venuestyle={
-    overflow: "auto",
+    weight:"30vw",
+    overflow: "y",
 }
 
-const eventlist=(list)=>{
-    var arr,i=0;
-    list.map((u)=>{
-        axios.get(`http://localhost:5500/event/${u}`)
-        .then((res)=>{arr[i++]=data;
-        return (
-            <div>
-                <p>Title: {res.data.title}</p>
-                <p>ProgTimee: {res.data.progtime}</p>
-                <p>Date: {res.data.date}</p>
-                <p>Price: ${res.data.price}</p>
-                <p>Description: {res.data.discription}</p>
-                <p>Presenterorge: {res.data.presenterorge}</p>
-            </div>)
-            }
+const venuetitlestyle={
+    padding:"1%",
+    border: "2px solid black",
+    margin: "1%",
+}
+
+const eventstyle={
+    margin:"1%",
+    padding:"1%",
+    display: "inline-block",
+    border: "2px solid black",
+    overflow: "x",
+    overflow: "y",
+    weight:"75vw",
+}
+
+class Eventblock extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            title:'',
+            progtimee:'', 
+            date:'',
+            price:'',
+            description:'',
+            presenterorge:''
+        }
+    }
+
+    render(){
+        axios.get(`http://localhost:5500/event/${this.props.eventid}`)
+                .then((res)=>{
+                    this.setState({title:res.data.title});
+                    this.setState({progtimee:res.data.progtimee});
+                    this.setState({date:res.data.date});
+                    this.setState({price:res.data.price});
+                    this.setState({description:res.data.description});
+                    this.setState({presenterorge:res.data.presenterorge});
+                    console.log('the event is',res.data);
+                })
+        return(
+            <div style={eventstyle} className="card d-inline-block m-2">
+                <p>Title: {this.state.title}</p>
+                <p>ProgTimee: {this.state.progtimee}</p>
+                <p>Date: {this.state.date}</p>
+                <p>Price: ${this.state.price}</p>
+                <p>Description: {this.state.description}</p>
+                <p>Presenterorge: {this.state.presenterorge}</p>
+            </div>
         )
-    })
-    
+    }
 }
-/*"eventID": "154858",
-        "title": "\n Tuen Mun Town Hall Venue Partnership Scheme \"Cats and Mouse 2024\" by Spring-Time Experimental Theatre \n",
-        "progtimee": "\n 1 hr 30 mins \n",
-        "date": [
-            "\n 20240106 \n",
-            "\n 20240107 \n"
-        ],
-        "venue": {
-            "venueID": "76810048",
-            "address": "\n Tuen Mun Town Hall (Auditorium) \n",
-            "latitude": "\n 22.391810 \n",
-            "longitude": "\n 113.976771 \n"
-        },
-        "price": 250,
-        "description": "\n Please refer to Chinese version. \n",
-        "presenterorge": "\n Pres*/
 
-class seperateView extends React.Component{
+class SeperateView extends React.Component{
     constructor(props){
         super(props);
-        this.state={
-            eventlist:[]
-        }
+    }
+
+    updateEventlist(a){
+        return(
+            a?.map((u)=>{
+                console.log("u=",u);
+                return (
+                    <Eventblock eventid={u}/>
+                )
+            })
+        )
     }
 
     render(){
         return(
             <div style={viewstyle} className="card d-inline-block m-2">
-                <div>{this.props.address}</div>
-                <div style={venuestyle}>
-                    <eventlist list={this.props.events}/>   
+                <div style={venuetitlestyle} className="card d-inline-block m-2">
+                    Location: {this.props.venuedetails.address}</div>
+                <div >
+                    {this.updateEventlist(this.props.venuedetails.events)}
                 </div>
             </div>
         )
     }
 }
 
-
-
-export default seperateView;
+export default SeperateView;

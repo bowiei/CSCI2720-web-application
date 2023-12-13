@@ -2,16 +2,19 @@
     {
         "username" : "user1",
         "password" : "password1",
-        "role" : "user"
+        "role" : "user",
+        "favoriteLocations" : []
     },
     {
         "username" : "user2",
         "password" : "password2",
-        "role" : "admin"
+        "role" : "admin",
+        "favoriteLocations" : []
     },
     {
         "username" : "user3",
         "password" : "password3",
-        "role" : "user"
+        "role" : "user",
+        "favoriteLocations" : []
     }
 ]

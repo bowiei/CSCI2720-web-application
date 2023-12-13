@@ -1,65 +1,51 @@
-import ReactDOM from "react-dom/client";
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import styled from "@emotion/styled";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./layout/sidebar";
+import UserPage from "./pages/user";
+import AdminPage from "./pages/admin";
+import UserList from "./components/userList";
+import CommentSection from "./components/comment";
+import LocationTable from "./components/locationTable";
+import MiddleBox from "./layout/middlebox";
+import Header from "./components/header";
 
-import UserPage from "./pages/user.js";
-import AdminPage from "./pages/admin.js";
-import UserList from "./components/userList.js";
-import CommentSection from "./components/comment.js";
-import VenueList from "./components/venueList.js";
-import LocationTable from "./components/locationTable.js";
-import Header from "./components/header.js";
 class App extends React.Component {
-
   render() {
     return (
-      <div>
-        <Header name="Project Name"/>
-        <Backgournd>
-          <BrowserRouter>
-            <div>
-              <ul>
-                <li>
-                  <Link to="/"> Home </Link>
-                </li>
-                <li>
-                  <Link to="/admin"> Admin Page </Link>
-                </li>
-                <li>
-                  <Link to="/userList"> userList Page </Link>
-                </li>
-                <li>
-                  <Link to="/CommentSection"> Comment Section </Link>
-                </li>
-                <li>
-                  <Link to="/locationTable"> LocationTable </Link>
-                </li>
-              </ul>
+      <>
+        <Header name="Project"/>
+        <BrowserRouter>
+          <div>
+            <div className="row">
+              <div className="col-lg-2 col-md-3">
+                <Sidebar/>
+              </div>
+              <div className="col-lg-10 col-md-9">
+                <Routes>
+                  <Route path="/user" element={<UserPage user={this.props.user} />} />
+                  <Route path="/admin" element={<AdminPage />} />
+                  <Route path="/userList" element={<UserList />} />
+                  <Route path="/commentSection" element={<CommentSection />} />
+                  <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
+                  <Route path="/Map" element={<MiddleBox/>} />
+                </Routes>
+              </div>
             </div>
-            <Routes>
-              <Route path="/" element={<UserPage user={this.props.user} />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/userList" element={<UserList />} />
-              <Route path="/CommentSection" element={<CommentSection />} />
-              <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
-            </Routes>
-          </BrowserRouter>
-        </Backgournd>
-      </div>
+          </div>
+        </BrowserRouter>
+      </>
     );
   }
 }
 
 export default App;
 
-
-const Backgournd = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color = #eee;
-    // overflow: hidden;
-    display : flex;
-    // justify-content: space-around;
-    // margin-top: 50px
-`;
+// const Backgournd = styled.div`
+//     width: 100vw;
+//     height: 100vh;
+//     background-color = #eee;
+//     // overflow: hidden;
+//     display : flex;
+//     // justify-content: space-around;
+//     // margin-top: 50px
+// `;
