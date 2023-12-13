@@ -90,6 +90,7 @@ class UserPage extends React.Component {
 
   render() {
     return (
+// <<<<<<< layout
       <div class="container">
         <div class="row">
           <div class="col-md-3">
@@ -141,6 +142,15 @@ class UserPage extends React.Component {
               </div>
             </div>
           </div>
+// =======
+//       <div>
+//         <div div class="sidebar">
+//           <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
+//         </div>
+//         <div style={mapstyle} className="card d-inline-block m-2">
+//           <Mapp center={this.state.centeMap} />
+//           <seperateView selectedLocation={this.state.selected_location} venuedetails={this.state.venue_details}/>
+// >>>>>>> main
         </div>
     </div>
     );
