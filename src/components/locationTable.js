@@ -77,24 +77,24 @@ class LocationTable extends Component {
     this.setState({ sortByEvent: this.state.sortByEvent * -1 });
   };
 
-  handleLike = (venue) => {
-    const { favoritevenues } = this.state;
-    const isVenueAdded = favoritevenues.some((favVenue) => favVenue === venue);
+ handleFavorite = (venue) => {
+    const data = {
+      venueID: venue
+    };
 
-    if (!isVenueAdded) {
-      const updatedFavoriteVenues = [...favoritevenues, venue];
-      this.setState(
-        {
-          favoritevenues: updatedFavoriteVenues,
-        },
-        () => {
-          localStorage.setItem("favoritevenues", JSON.stringify(updatedFavoriteVenues));
-        }
-      );
-    } else {
-      console.log("Venue already added");
-    }
-  };
+    axios.put(`http://localhost:5500/user/add/user1`, data) //need to update, replace the user1
+    .then((response) => {
+      if (response.status === 404 || response.status === 400) {
+        console.log(response);
+      } else {
+        console.log("added");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
 
   handleLocationClick = (location) => {
     // Call the handleLocationSelect method from the App component to update the selected_location state
@@ -131,6 +131,7 @@ class LocationTable extends Component {
                   <button className="btn btn-transparent" onClick={() => this.handleLocationClick(venue.venueID)}>
                     📌
                   </button>
+                      <button onClick={()=>this.handleFavorite(venue.venueID)}>Favourite</button>
                 </td>
                 <td>{venue.events.length}</td>
               </tr>
