@@ -10,6 +10,7 @@ class LocationTable extends Component {
       venues: [],
       filterKeyword: "",
       sortByEvent: 1,
+      updated: false
     };
   }
 
@@ -88,6 +89,7 @@ class LocationTable extends Component {
         console.log(response);
       } else {
         console.log("added");
+        this.setState({updated:true});
       }
     })
     .catch((error) => {
@@ -138,7 +140,7 @@ class LocationTable extends Component {
             ))}
           </tbody>
         </table>
-        <FavoriteList favoritevenues={this.state.favoritevenues} />
+       <FavoriteList updated={this.state.updated} />
       </div>
     );
   }
