@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../model/user.model");
-
+const Venue = require("../model/venue.model");
 const express = require("express");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
