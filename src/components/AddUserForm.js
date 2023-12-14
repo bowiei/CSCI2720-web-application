@@ -33,7 +33,7 @@ class AddUserForm extends Component {
         this.props.onUserAdded();
         })
         .catch((error) => {
-        console.log(error);
+            console.log(error);
         });
     };
 

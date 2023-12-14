@@ -30,13 +30,21 @@ class Event extends Component {
       .delete(`http://localhost:5500/event/delete/${this.props.event.eventID}`)
       .then((response) => {
         console.log(response.data);
-        this.props.onEventDeleted();
-        // Perform any additional actions after successful deletion
       })
       .catch((error) => {
         console.log(error);
-        // Handle error cases
       });
+    
+    axios
+      .delete(`http://localhost:5500/venue/delete/v/${this.props.event.venue.venueID}/e/${this.props.event.eventID}`)
+      .then((response) => {
+        console.log(response.data);
+        this.props.onEventDeleted();
+      }) 
+      .catch((error) => {
+        console.log("fds");
+      });
+
   };
 
   render() {

@@ -57,14 +57,17 @@ class AddEventForm extends Component {
         };
 
         axios
-            .post(`http://localhost:5500/event/add`, newEvent)
-            .then((response) => {
-            console.log(response.data);
-            this.props.onEventAdded();
-            })
-            .catch((error) => {
-            console.log(error);
-            });
+        .post(`http://localhost:5500/event/add`, newEvent)
+        .then((response) => {
+          return axios.put(`http://localhost:5500/venue/add/v/${venue.venueID}/e/${eventID}`);
+        })
+        .then(() => {
+          console.log("Event added to venue successfully");
+          this.props.onEventAdded();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     render() {

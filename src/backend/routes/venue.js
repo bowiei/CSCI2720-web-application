@@ -55,6 +55,55 @@ router.route("/update/:venueID").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/delete/v/:venueID/e/:eventID").delete((req, res) => {
+  const venueID = req.params.venueID;
+  const eventIDToDelete = req.params.eventID;
+
+  Venue.findOne({ venueID: venueID })
+    .then((venue) => {
+      if (!venue) {
+        return res.status(404).json({ message: "Venue not found" });
+      }
+
+      const eventIndex = venue.events.findIndex((eventID) => eventID === eventIDToDelete);
+      if (eventIndex === -1) {
+        return res.status(404).json({ message: "Event not found in the venue" });
+      }
+
+      venue.events.splice(eventIndex, 1);
+
+      return venue.save();
+    })
+    .then(() => {
+      return res.status(200).json({ message: "Event deleted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ message: "Internal server error" });
+    });
+});
+
+router.route("/add/v/:venueID/e/:eventID").put((req, res) => {
+  const venueID = req.params.venueID;
+  const eventIDToAdd= req.params.eventID;
+  console.log("adding rext: ", venueID);
+  Venue.findOne({ venueID: venueID })
+    .then((venue) => {
+      if (!venue) {
+        return res.status(404).json({ message: "Venue not found" });
+      }
+      venue.events.push(eventIDToAdd);
+      return venue.save();
+    })
+    .then(() => {
+      return res.status(200).json({ message: "Event added successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ message: "Internal server error" });
+    });
+});
+
 // Delete a specific venue by ID
 router.route("/delete/:id").delete((req, res) => {
   Venue.findByIdAndDelete(req.params.id)
