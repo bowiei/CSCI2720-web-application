@@ -43,31 +43,22 @@ const smcardstyleGp = {
   width: "100%",
   border: "2px solid black",
 };
-let center = {
-  lat: 7.2905715, // default latitude
-  lng: 80.6337262, // default longitude
-};
 
-let zoom = 20;
+let zoom = 18;
 
 function chooseLocation() {}
-
-let loc = {
-  venue: "123",
-  address: "111",
-  event: "111",
-};
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      venues:[],
       login_username: "",
       selected_location: "",
       venue_details: {},
       centeMap: {
-        lat: 7.2905715, // default latitude
-        lng: 80.6337262, // default longitude
+        lat: 22.302711, // default latitude
+        lng: 114.177216, // default longitude
       },
     };
   }
@@ -101,11 +92,14 @@ class Map extends React.Component {
   };
 
   componentDidMount() {
-    // Perform database retrieval and update venue_details state
-    // Example:
-    // fetchVenueDetailsFromDatabase().then((details) => {
-    //   this.setState({ venue_details: details });
-    // });
+    axios
+      .get("http://localhost:5500/venue")
+      .then((response) => {
+        this.setState({ venues: response.data });
+      })
+      .catch((error) => {
+        console.error("Error fetching venues:", error);
+      });
   }
 
   render() {
@@ -124,7 +118,7 @@ class Map extends React.Component {
           <div className="col-lg-6 col-md-12">
             <div>
               <div className="row">
-                <Mapp center={this.state.centeMap} />
+                <Mapp center={this.state.centeMap} venue={this.state.venues} handleLocationSelect={this.handleLocationSelect}/>
               </div>
               <div className="row" style={smcardstyleGp}>
                 <div className="col-md-6" style={smcardstyle}>
@@ -155,35 +149,8 @@ class Map extends React.Component {
   }
 }
 
-// render() {
-//   return (
-//       <>
 
-//               <div className="row">
-//                   <div className="col-md-6">
-//                       <div className="card">
-//                           <div className="card-body">
-//                             <div style={mapstyle} className="card d-inline-block m-2">
-//                               <Mapp center={this.state.centeMap} />
-//                           </div>
-//                       </div>
-//                   </div>
-//                   <div className="col-md-6">
-//                       <div className="card">
-//                           <div className="card-body">
-//                             <div style={mapstyle} className="card d-inline-block m-2">
-//                               <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
-//                             </div>
-//                           </div>
-//                       </div>
-//                   </div>
-//               </div>
-//           </div>
-//       </>
-//   );
-// }
-
-const Mapp = ({ center }) => {
+const Mapp = ({ center,venue,handleLocationSelect}) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDHzobelxj6hZ2p8gwxk3jpAkTRcXJfVYU",
     libraries,
@@ -199,7 +166,17 @@ const Mapp = ({ center }) => {
 
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={zoom} center={center}>
-      <Marker position={center} onclick="chooseLocation()" />
+      {
+        venue.map((element) => {
+          let x={
+            lat:Number(element.latitude),
+            lng:Number(element.longitude)
+          }
+          console.log("position",x)
+          return(<Marker position={x} onclick={()=>{console.log("clicked",element.venueID)
+            handleLocationSelect((element.venueID).toString())}} />)
+        })
+      }
     </GoogleMap>
   );
 };
