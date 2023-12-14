@@ -32,7 +32,11 @@ constructor(props) {
         updated: false
       };
     }
-  
+    
+     componentDidMount(){
+      this.fetchlist();
+    }
+    
     componentDidUpdate() {
       this.fetchlist();
     }
