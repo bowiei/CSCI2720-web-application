@@ -39,6 +39,14 @@ router.route("/:venueID").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// Read a _id
+router.route("/find/:objectID").get((req, res) => {
+  const objID = req.params.objectID;
+  Venue.findOne({ _id: objID})
+    .then((venue) => res.json(venue))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 // Update a specific venueID
 router.route("/update/:venueID").post((req, res) => {
   Venue.findOne({ venueID: req.params.venueID })
