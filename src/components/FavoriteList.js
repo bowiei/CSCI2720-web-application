@@ -91,6 +91,7 @@ constructor(props) {
   
       return (
         <div>
+          <h4>Favorite Locations</h4>
           <ul style = {ul_style}>
             {favoriteLocations.map((location, index) => (
               <li style={li_style} key={index}>
