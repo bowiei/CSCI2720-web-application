@@ -92,4 +92,74 @@ router.route("/delete/:username").delete((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+//route for adding favourite locations
+router.route("/add/:username").put((req, res) => {
+  const { username } = req.params;
+  const { venueID } = req.body;
+
+  User.findOne({ username })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json("User not found");
+      }
+
+      Venue.find({ venueID: venueID })
+        .then((venues) => {
+          const favoriteVenueIds = venues.map((venue) => venue._id);
+          const existingFavorites = favoriteVenueIds.filter((id) =>
+            user.favoriteLocations.includes(id)
+          );
+
+          if (existingFavorites.length > 0) {
+            return res
+              .status(400)
+              .json("Location already exists in favorites");
+          }
+
+          user.favoriteLocations = [
+            ...user.favoriteLocations,
+            ...favoriteVenueIds,
+          ];
+
+          user
+            .save()
+            .then(() => res.json(user))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//route for remove items in favloc
+router.route("/remove/:username").put((req, res) => {
+  const { username } = req.params;
+  const { venueID } = req.body;
+
+  User.findOne({ username })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json("User not found");
+      }
+
+      Venue.find({ venueID: venueID })
+        .then((venues) => {
+          const favoriteVenueIds = venues.map((venue) => venue._id.toString());
+          const index = user.favoriteLocations.findIndex((id) => favoriteVenueIds.includes(id.toString()));
+          if (index === -1) {
+            return res.status(404).json("Location does not exist");
+          }
+
+          user.favoriteLocations.splice(index, 1);
+
+          user
+            .save()
+            .then(() => res.json(user))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
