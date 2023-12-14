@@ -13,7 +13,7 @@ class Header extends React.Component {
     render() {
         return (
             <>
-                <header className="bg-warning" style={{ height: '75px', width: '100%' }}>
+                <header style={{ height: '75px', width: '100%', backgroundColor: "lightgrey" }}>
                 <div className="row">
                     <div className="col-md-8 col-sm-9">
                     <h1 className="display-6" style={projectName}>{this.props.name}</h1>

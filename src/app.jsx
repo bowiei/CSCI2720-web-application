@@ -19,7 +19,7 @@ class App extends React.Component {
               <div className="col-lg-2 col-md-3">
                 <Sidebar/>
               </div>
-              <div className="col-lg-10 col-md-9">
+              <div className="col-lg-10 col-md-9" style={{ padding: "14px"}}>
                 <Routes>
                   <Route path="/user" element={<UserPage user={this.props.user} />} />
                   <Route path="/admin" element={<AdminPage />} />

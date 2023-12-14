@@ -6,7 +6,7 @@ class Sidebar extends React.Component {
     return (
         <>
             <div className="sideBar" style={sideBar}>
-                <h4 style = {{ margin: "0px 20px"}}> Navigation </h4>
+                <h4 style = {{ margin: "0px 20px", padding: "5px"}}> Navigation </h4>
                 <ul>
                     <li>
                         <Link to="/user">Home</Link>
@@ -33,6 +33,6 @@ class Sidebar extends React.Component {
 export default Sidebar;
 
 const sideBar = {
-    backgroundColor: "lightgrey",
+    backgroundColor: "#ECECEC",
     height: "100%"
 }
