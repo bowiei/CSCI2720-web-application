@@ -1,12 +1,12 @@
 # step for start the project
 
 
-> $git clone https://github.com/bowiei/CSCI2720-web-application.git --single-branch --branch dbsetup </br>
-> $cd CSCI2720-web-application </br>
+> $git clone https://github.com/bowiei/CSCI2720-web-application.git --single-branch --branch dbsetup
+> $cd CSCI2720-web-application
 
-> $npm install  </br>
+> $npm install
 
-> $npm run server </br>
+> $npm run server
 First run for collection 
 Second run for inserting DB
 You need to kill the port for second $npm run server
