@@ -28,11 +28,12 @@ constructor(props) {
       super(props);
       this.state = {
         favoriteLocations: [],
-        venueMap: []
+        venueMap: [],
+        updated: false
       };
     }
   
-    componentDidMount() {
+    componentDidUpdate() {
       this.fetchlist();
     }
   
@@ -76,7 +77,7 @@ constructor(props) {
               updatedLocations.splice(index, 1);
               updatedMap.splice(index, 1); 
               this.setState({ favoriteLocations: updatedLocations, venueMap: updatedMap });
-              alert("OK!");
+              console.log("OK!");
             }
           })
           .catch((error) => {
