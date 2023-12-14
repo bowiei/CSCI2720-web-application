@@ -8,7 +8,6 @@ import axios from "axios";
 
 const libraries = ["places"];
 
-
 const mapContainerStyle = {
   display: "inline-block",
   justifyContent: "center",
@@ -31,11 +30,11 @@ const lgcardstyle = {
 const smcardstyle = {
   background: "white",
   border: "2px solid black",
-  margin : "4%",
+  margin: "4%",
   borderRadius: "5px",
   width: "42%",
   height: "auto",
-}
+};
 
 const smcardstyleGp = {
   margin: "25px 0px 20px 5px",
@@ -43,7 +42,7 @@ const smcardstyleGp = {
   borderRadius: "5px",
   width: "100%",
   border: "2px solid black",
-}
+};
 let center = {
   lat: 7.2905715, // default latitude
   lng: 80.6337262, // default longitude
@@ -117,17 +116,15 @@ class Map extends React.Component {
             <div className="card">
               <div className="card-body">
                 <div style={lgcardstyle} className="card d-inline-block m-2">
-                  <LocationTable
-                    handleLocationSelect={this.handleLocationSelect}
-                    loc={this.state.centeMap}/>
-                  </div>
+                  <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
+                </div>
               </div>
             </div>
           </div>
           <div className="col-lg-6 col-md-12">
             <div>
               <div className="row">
-                <Mapp center={this.state.centeMap}/> 
+                <Mapp center={this.state.centeMap} />
               </div>
               <div className="row" style={smcardstyleGp}>
                 <div className="col-md-6" style={smcardstyle}>
@@ -137,57 +134,54 @@ class Map extends React.Component {
                   <LocationCard selectedLoc={this.state.selected_location} />
                 </div>
               </div>
-                <div className="row">
-                    <div className="card">
-                      <div className="card-body">
-                        Add Comment
-                        
-                      </div>
-                    </div>
+              <div className="row">
+                <div className="card">
+                  <div className="card-body">Add Comment</div>
                 </div>
-                <div className="row">
-                  <div className="card">
-                    <div className="card-body">
-                      Comments
-                      <CommentList/>
-                    </div>
+              </div>
+              <div className="row">
+                <div className="card">
+                  <div className="card-body">
+                    Comments
+                    <CommentList />
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </>
     );
   }
 }
 
-  // render() {
-  //   return (
-  //       <>
-            
-  //               <div className="row">
-  //                   <div className="col-md-6">
-  //                       <div className="card">
-  //                           <div className="card-body">
-  //                             <div style={mapstyle} className="card d-inline-block m-2">
-  //                               <Mapp center={this.state.centeMap} />
-  //                           </div>
-  //                       </div>
-  //                   </div>
-  //                   <div className="col-md-6">
-  //                       <div className="card">
-  //                           <div className="card-body">
-  //                             <div style={mapstyle} className="card d-inline-block m-2">
-  //                               <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
-  //                             </div>
-  //                           </div>
-  //                       </div>
-  //                   </div>
-  //               </div>
-  //           </div>
-  //       </>
-  //   );
-  // }
+// render() {
+//   return (
+//       <>
+
+//               <div className="row">
+//                   <div className="col-md-6">
+//                       <div className="card">
+//                           <div className="card-body">
+//                             <div style={mapstyle} className="card d-inline-block m-2">
+//                               <Mapp center={this.state.centeMap} />
+//                           </div>
+//                       </div>
+//                   </div>
+//                   <div className="col-md-6">
+//                       <div className="card">
+//                           <div className="card-body">
+//                             <div style={mapstyle} className="card d-inline-block m-2">
+//                               <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
+//                             </div>
+//                           </div>
+//                       </div>
+//                   </div>
+//               </div>
+//           </div>
+//       </>
+//   );
+// }
 
 const Mapp = ({ center }) => {
   const { isLoaded, loadError } = useLoadScript({

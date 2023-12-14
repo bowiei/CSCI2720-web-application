@@ -35,9 +35,23 @@ class LocationTable extends Component {
 
   handleFilter = () => {
     // Filter the table based on the filterKeyword
-    const { venues, filterKeyword } = this.state;
+    const { venues, filterKeyword, sortByEvent } = this.state;
     const filteredVenues = venues.filter((venue) => venue.address.toLowerCase().includes(filterKeyword.toLowerCase()));
     this.setState({ venues: filteredVenues });
+  };
+
+  handleSort = () => {
+    // Sort the table based on the sortByEvent (asc or desc)
+    const { venues, sortByEvent } = this.state;
+    const sortedVenues = [...venues].sort((a, b) => {
+      if (sortByEvent === 1) {
+        return a.events.length - b.events.length;
+      } else {
+        return b.events.length - a.events.length;
+      }
+    });
+    this.setState({ venues: sortedVenues });
+    this.setState({ sortByEvent: this.state.sortByEvent * -1 });
   };
 
   handleReset = () => {
@@ -74,11 +88,11 @@ class LocationTable extends Component {
           favoritevenues: updatedFavoriteVenues,
         },
         () => {
-          localStorage.setItem('favoritevenues', JSON.stringify(updatedFavoriteVenues));
+          localStorage.setItem("favoritevenues", JSON.stringify(updatedFavoriteVenues));
         }
       );
     } else {
-      console.log('Venue already added');
+      console.log("Venue already added");
     }
   };
 
@@ -91,11 +105,16 @@ class LocationTable extends Component {
   render() {
     const { venues, filterKeyword } = this.state;
     // const { handleLocationSelect } = this.props;
-      return (
-        <div>
-          <SearchBar filterKeyword={filterKeyword} handleInputChange={this.handleInputChange} 
-          handleFilter={this.handleFilter} handleReset={this.handleReset}
-          placeholderText="Search location(s) by keywords"/>
+    return (
+      <div>
+        <SearchBar
+          filterKeyword={filterKeyword}
+          handleInputChange={this.handleInputChange}
+          handleFilter={this.handleFilter}
+          handleReset={this.handleReset}
+          handleSort={this.handleSort}
+          placeholderText="Search location(s) by keywords"
+        />
         <table className="table">
           <thead>
             <tr>
@@ -109,8 +128,8 @@ class LocationTable extends Component {
               <tr key={venue.venueID}>
                 <td>
                   {venue.address}
-                  <button className="" onClick={() => this.handleLocationClick(venue.venueID)}>
-                    Click to zoom
+                  <button className="btn btn-transparent" onClick={() => this.handleLocationClick(venue.venueID)}>
+                    📌
                   </button>
                 </td>
                 <td>{venue.events.length}</td>

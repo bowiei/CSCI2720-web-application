@@ -62,7 +62,7 @@ class CommentSection extends Component {
                 {/* <h5 className="card-title">Comment ID: {comment.commentID}</h5> */}
                 <h5 className="card-title">
                   <img src={this.getRandomAvatar()} alt="User Avatar" style={{ height: 50, width: 50 }} className="avatar" />
-                  {comment.username}
+                  {comment.username.substring(0, 3)+ "***"}
                 </h5>
                 <p className="card-title">
                   {comment.comment} (Date: {comment.datetime.split("T")[0]})
