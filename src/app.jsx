@@ -12,7 +12,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Header name="Project"/>
+        <Header name="Cultural Programmes"/>
         <BrowserRouter>
           <div>
             <div className="row">
