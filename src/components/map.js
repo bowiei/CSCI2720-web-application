@@ -1,6 +1,6 @@
 import React from "react";
 import LocationTable from "./locationTable.js";
-import CommentList from "./comment.js";
+import CommentSection from "./comment.js";
 import EventCard from "./eventCard.js";
 import LocationCard from "./locationCard.js";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
@@ -55,6 +55,7 @@ class Map extends React.Component {
       venues:[],
       login_username: "",
       selected_location: "",
+      selected_location_name: null,
       venue_details: {},
       centeMap: {
         lat: 22.302711, // default latitude
@@ -82,6 +83,7 @@ class Map extends React.Component {
               lat: parseFloat(this.state.venue_details.latitude.trim()),
               lng: parseFloat(this.state.venue_details.longitude.trim()),
             },
+            selected_location_name: this.state.venue_details.address,
           });
           console.log("this.state.centeMap:", this.state.centeMap);
         });
@@ -114,6 +116,10 @@ class Map extends React.Component {
                 </div>
               </div>
             </div>
+            <div style={{marginTop: "10px"}}>
+              <CommentSection selectedLoc={this.state.selected_location_name} 
+              selectedLocID={this.state.selected_location} />
+            </div>
           </div>
           <div className="col-lg-6 col-md-12">
             <div>
@@ -126,19 +132,6 @@ class Map extends React.Component {
                 </div>
                 <div className="col-md-6" style={smcardstyle}>
                   <LocationCard selectedLoc={this.state.selected_location} />
-                </div>
-              </div>
-              <div className="row">
-                <div className="card">
-                  <div className="card-body">Add Comment</div>
-                </div>
-              </div>
-              <div className="row" style={{marginTop: "10px"}}>
-                <div className="card">
-                  <div className="card-body">
-                    Comments
-                    <CommentList />
-                  </div>
                 </div>
               </div>
             </div>
@@ -172,6 +165,9 @@ const Mapp = ({ center,venue,handleLocationSelect}) => {
             lat:Number(element.latitude),
             lng:Number(element.longitude)
           }
+          // console.log("position",x)
+          return(<Marker position={x} onclick={()=>{console.log("clicked",element.venueID)
+            handleLocationSelect((element.venueID).toString())}} />)
           console.log("position",x)
           return (
             <Marker

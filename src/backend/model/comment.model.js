@@ -6,6 +6,7 @@ const commentSchema = new Schema({
   commentID: { type: Number, required: true, unique: true },
   username: { type: String, required: true },
   comment: { type: String, required: true },
+  locID: { type: String, required: true },
   datetime: { type: Date, default: Date.now },
 });
 

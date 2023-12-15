@@ -13,21 +13,23 @@ router.route("/").get((req, res) => {
 
 // Create a new comment
 router.route("/add").post((req, res) => {
-  const venueID = req.body.venueID;
-  const userID = req.body.userID;
+  const commentID = req.body.commentID;
+  const username = req.body.username;
   const comment = req.body.comment;
+  const locID = req.body.locID;
   const datetime = new Date();
 
   const newComment = new Comment({
-    venueID,
-    userID,
+    commentID,
+    username,
     comment,
+    locID,
     datetime,
   });
 
   newComment
     .save()
-    .then(() => res.json("Comment added!"))
+    .then((response) => res.json(response))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 

@@ -4,8 +4,6 @@ import Sidebar from "./components/sidebar";
 import UserPage from "./pages/user";
 import AdminPage from "./pages/admin";
 import UserListView from "./components/userListView";
-import CommentSection from "./components/comment";
-import LocationTable from "./components/locationTable";
 import EventList from "./components/eventList";
 import UserEventList from "./components/userEventList";
 import Header from "./components/header";
@@ -26,8 +24,6 @@ class App extends React.Component {
                   <Route path="/user" element={<UserPage user={this.props.user} />} />
                   <Route path="/admin" element={<AdminPage />} />
                   <Route path="/userListView" element={<UserListView />} />
-                  <Route path="/commentSection" element={<CommentSection />} />
-                  <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
                   <Route path="/UsereventList" element={<UserEventList />} />
                   <Route path="/AdmineventList" element={<EventList />} />
                 </Routes>
