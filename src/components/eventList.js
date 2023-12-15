@@ -56,7 +56,7 @@ class Event extends Component {
         {isEditing ? (
           <td colSpan="4">
             <h4> Edit event {event.eventID} </h4>
-            <UpdateEventForm event={event} onEventUpdated={this.handleEventUpdated} onCancel={() => this.setState({ isEditing: false })} />
+            <UpdateEventForm event={event} oldVenueid = {event.venue.venueID} onEventUpdated={this.handleEventUpdated} onCancel={() => this.setState({ isEditing: false })} />
           </td>
         ) : (
           <>

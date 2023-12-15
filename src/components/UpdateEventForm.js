@@ -40,6 +40,7 @@ class UpdateEventForm extends Component {
 
 
         const { eventID, title, progtimee, date, venue, price, description, presenterorge } = this.state;
+
         const updatedEvent = {
             eventID: eventID,
             title: title,
@@ -60,11 +61,20 @@ class UpdateEventForm extends Component {
         .put(`http://localhost:5500/event/update/${this.props.event.eventID}`, updatedEvent)
         .then((response) => {
             console.log(response.data);
-            this.props.onEventUpdated();
-            // Perform any additional actions after successful update
         })
         .catch((error) => {
             console.log(updatedEvent);
+            console.log(error);
+            // Handle error cases
+        });
+
+        axios
+        .put(`http://localhost:5500/venue/update/oldv/${this.props.oldVenueid}/newv/${venue.venueID}/e/${this.props.event.eventID}`)
+        .then((response) => {
+            console.log(response.data);
+            this.props.onEventUpdated();
+        })
+        .catch((error) => {
             console.log(error);
             // Handle error cases
         });

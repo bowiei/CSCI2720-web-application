@@ -153,4 +153,40 @@ router.route("/comment/v/:venueID").get((req, res) => {
     })  
 });
 
+router.route("/update/oldv/:oldVenueID/newv/:newVenueID/e/:eventID").put((req, res) => {
+  Venue.findOne({ venueID: req.params.oldVenueID })
+    .then((venue) => {
+      if (!venue) {
+        return res.status(404).json({ message: "Venue not found" });
+      }
+      const eventIndex = venue.events.findIndex((eventID) => eventID === req.params.eventID);
+      if (eventIndex === -1) {
+        return res.status(404).json({ message: "Event not found in the venue" });
+      }
+      venue.events.splice(eventIndex, 1);
+      return venue.save();
+    })
+    .then(() => {
+      Venue.findOne({ venueID: req.params.newVenueID })
+        .then((venue) => {
+          if (!venue) {
+            return res.status(404).json({ message: "Venue not found" });
+          }
+          venue.events.push(req.params.eventID);
+          return venue.save();
+        })
+        .then(() => {
+          return res.status(200).json({ message: "Event updated successfully" });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json({ message: "Internal server error" });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ message: "Internal server error" });
+    });
+  });
+
 module.exports = router;
