@@ -7,6 +7,7 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ["user", "admin"], default: "user" },
   favoriteLocations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Venue" }],
+  keyHash : { type: String, default: null },
 });
 
 const User = mongoose.model("User", userSchema);

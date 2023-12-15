@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../model/user.model");
+const bcrypt = require("bcrypt");
 const Venue = require("../model/venue.model");
 const express = require("express");
 router.use(express.json());
@@ -31,6 +32,7 @@ router.route("/register").post((req, res) => {
 });
 
 // Login route
+
 router.route("/login").post((req, res) => {
   const { username, password } = req.body;
 
@@ -40,10 +42,22 @@ router.route("/login").post((req, res) => {
       // Check if the user exists and the password matches
       if (user && user.password === password) {
         // Create a cookie and session
-        req.session.user = user;
-        res.cookie("sessionID", req.sessionID);
+        // Generate a random key
+        const key = Math.random().toString(36).substring(2, 12);
 
-        res.json("Login successful!");
+        // Hash the key with the username
+        const keyHash = bcrypt.hashSync(username + key, 10);
+        // console.log(keyHash,username,password);
+        User.findOneAndUpdate({ username: username }, { keyHash: keyHash })
+          .then(() => {
+            // Set the cookie with the hashed key
+            res.cookie("session", keyHash, { maxAge: 86400000, httpOnly: true });
+            console.log("session key:", keyHash);
+            res.status(200).json({ message: "Login successful" });
+          })
+          .catch((err) => {
+            res.status(500).json({ error: "Error: " + err });
+          });
       } else {
         res.status(401).json("Invalid username or password.");
       }

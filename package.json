@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -51,7 +52,6 @@
   },
   "description": "$git clone https://github.com/bowiei/CSCI2720-web-application.git --single-branch --branch dbsetup </br> $cd CSCI2720-web-application </br> $npm install  </br> $npm install react axios </br> $npm run init-server </br> $npm run server </br> $start a new window , then npm start to open the client </br> $npm start </br>",
   "main": "index.js",
-  "devDependencies": {},
   "author": "",
   "license": "ISC"
 }

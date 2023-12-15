@@ -9,17 +9,24 @@ import UserEventList from "./components/userEventList";
 import Header from "./components/header";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      user: "",
+    };
+  }
   render() {
     return (
       <>
-        <Header name="Cultural Programmes"/>
+        <Header name="Cultural Programmes" />
         <BrowserRouter>
           <div>
             <div className="row">
               <div className="col-lg-2 col-md-3">
-                <Sidebar/>
+                <Sidebar />
               </div>
-              <div className="col-lg-10 col-md-9" style={{ padding: "14px"}}>
+              <div className="col-lg-10 col-md-9" style={{ padding: "14px" }}>
                 <Routes>
                   <Route path="/user" element={<UserPage user={this.props.user} />} />
                   <Route path="/admin" element={<AdminPage />} />
