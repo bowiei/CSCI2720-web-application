@@ -12,25 +12,29 @@ class Header extends React.Component {
 
     render() {
         return (
-            <>
-                <header style={{ height: '75px', width: '100%', backgroundColor: "lightgrey" }}>
-                <div className="row">
-                    <div className="col-md-8 col-sm-9">
-                    <h1 className="display-6" style={projectName}>{this.props.name}</h1>
-                    </div>
-                    <div className="col-md-4 col-sm-3 d-flex align-items-center justify-content-end">
-                        <div style={container}>
-                            <div className="avatar" style={avatar}>
-                                <img src={this.getRandomAvatar()} alt="User Avatar" style={avatarImg}/>
-                            </div>
-                            <div style={userName}>{this.props.user} test </div>
-                        </div>
-                        
-                        <button style={logout} className="btn btn-danger btn-sm">Logout</button>
-                    </div>
+          <>
+            <header style={{ height: "75px", width: "100%", backgroundColor: "lightgrey" }}>
+              <div className="row">
+                <div className="col-md-8 col-sm-9">
+                  <h1 className="display-6" style={projectName}>
+                    {this.props.name}
+                  </h1>
                 </div>
-                </header>
-            </>
+                <div className="col-md-4 col-sm-3 d-flex align-items-center justify-content-end">
+                  <div style={container}>
+                    <div className="avatar" style={avatar}>
+                      <img src={this.getRandomAvatar()} alt="User Avatar" style={avatarImg} />
+                    </div>
+                    <div style={userName}> ⭐{this.props.username}⭐ </div>
+                  </div>
+
+                  <button style={logout} onClick={this.props.onLogout} className="btn btn-danger btn-sm">
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </header>
+          </>
         );
     }
 }

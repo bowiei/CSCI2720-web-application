@@ -2,12 +2,16 @@ const router = require("express").Router();
 const User = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const Venue = require("../model/venue.model");
+const cookieParser = require("cookie-parser");
 const express = require("express");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
-
+router.use(cookieParser());
 // Read all users
 router.route("/").get((req, res) => {
+  // const cookieValue = req.cookies.session;
+  // console.log("cookie value:" + cookieValue);
+
   User.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -49,20 +53,40 @@ router.route("/login").post((req, res) => {
         const keyHash = bcrypt.hashSync(username + key, 10);
         // console.log(keyHash,username,password);
         User.findOneAndUpdate({ username: username }, { keyHash: keyHash })
-          .then(() => {
+          .then((updatedUser) => {
             // Set the cookie with the hashed key
             res.cookie("session", keyHash, { maxAge: 86400000, httpOnly: true });
             console.log("session key:", keyHash);
-            res.status(200).json({ message: "Login successful" });
+            res.status(200).json({ message: "Login successful", user: updatedUser });
           })
           .catch((err) => {
             res.status(500).json({ error: "Error: " + err });
           });
       } else {
-        res.status(401).json("Invalid username or password.");
+        // console.log(username, password);
+        res.status(401).json("Invalid username or password."+{message:error.message});
       }
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(400).json("Username not found: " + err));
+});
+
+router.route("/check_cookie").get((req, res) => {
+  const sessionValue = req.cookies.session;
+
+  // Search for a user with the matching session value
+  User.findOne({ keyHash: sessionValue })
+    .then((user) => {
+      if (user) {
+        // User found in the database
+        res.status(200).json(user);
+      } else {
+        // User not found or session value does not match any user in the database
+        res.status(404).json({ message: "User not found" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "Error: " + err });
+    });
 });
 
 router.route("/register").put((req, res) => {
