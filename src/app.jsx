@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/sidebar";
-import UserPage from "./pages/user";
 import AdminPage from "./pages/admin";
 import LoginPage from "./pages/login";
 import UserEventList from "./components/userEventList";
 import Header from "./components/header";
+import Map from "./components/map";
 
 class App extends React.Component {
   constructor(props) {
@@ -47,11 +47,11 @@ class App extends React.Component {
             <div>
               <div className="row">
                 <div className="col-lg-2 col-md-3">
-                  <Sidebar role={this.state.role}/>
+                  <Sidebar role={this.state.role} />
                 </div>
                 <div className="col-lg-10 col-md-9" style={{ padding: "14px" }}>
                   <Routes>
-                    <Route path="/user" element={<UserPage user={this.props.user} />} />
+                    <Route path="/user" element={<Map username={this.state.username} />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/UsereventList" element={<UserEventList />} />
                   </Routes>

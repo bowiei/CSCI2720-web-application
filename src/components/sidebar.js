@@ -33,7 +33,7 @@ class Sidebar extends React.Component {
 export default Sidebar;
 
 const sideBar = {
-    
+    // width: "20%",
     backgroundColor: "#ECECEC",
     height: "100%"
 }

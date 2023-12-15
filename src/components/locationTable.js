@@ -10,7 +10,7 @@ class LocationTable extends Component {
       venues: [],
       filterKeyword: "",
       sortByEvent: 1,
-      updated: false,
+      fetchList: [],
       showColumns: {
         venueID: false,
         address: true,
@@ -98,19 +98,20 @@ class LocationTable extends Component {
     });
   }
 
-  handleFavorite = (venue) => {
+  handleFavorite = (venue, name) => {
     const data = {
       venueID: venue,
     };
-
+    // console.log(name);
     axios
-      .put(`http://localhost:5500/user/add_fav/user1`, data) //need to update, replace the user1
+      .put(`http://localhost:5500/user/add_fav/${name}`, data) //need to update, replace the user1
       .then((response) => {
         if (response.status === 404 || response.status === 400) {
           console.log(response);
         } else {
           console.log("added");
-          this.setState({ updated: true });
+          const updatedFetchList = [...this.state.fetchList, { venue, name }];
+          this.setState({ fetchList: updatedFetchList });
         }
       })
       .catch((error) => {
@@ -184,7 +185,7 @@ class LocationTable extends Component {
                     <button className="btn btn-transparent" onClick={() => this.handleLocationClick(venue.venueID)}>
                       📌
                     </button>
-                    <button className="btn btn-transparent" disabled={false} onClick={() => this.handleFavorite(venue.venueID)}>
+                    <button className="btn btn-transparent" disabled={false} onClick={() => this.handleFavorite(venue.venueID, this.props.username)}>
                       ⭐
                     </button>
                   </td>
@@ -197,7 +198,7 @@ class LocationTable extends Component {
             ))}
           </tbody>
         </table>
-        <FavoriteList updated={this.state.updated} />
+        <FavoriteList fetchList={this.state.fetchList} />
       </div>
     );
   }

@@ -52,7 +52,7 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      venues:[],
+      venues: [],
       login_username: "",
       selected_location: "",
       selected_location_name: null,
@@ -105,6 +105,7 @@ class Map extends React.Component {
   }
 
   render() {
+
     return (
       <>
         <div className="row" style={{ marginTop: "10px" }}>
@@ -112,19 +113,18 @@ class Map extends React.Component {
             <div className="card">
               <div className="card-body">
                 <div style={lgcardstyle} className="card d-inline-block m-2">
-                  <LocationTable handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
+                  <LocationTable username={this.props.username} handleLocationSelect={this.handleLocationSelect} loc={this.state.centeMap} />
                 </div>
               </div>
             </div>
-            <div style={{marginTop: "10px"}}>
-              <CommentSection selectedLoc={this.state.selected_location_name} 
-              selectedLocID={this.state.selected_location} />
+            <div style={{ marginTop: "10px" }}>
+              <CommentSection selectedLoc={this.state.selected_location_name} selectedLocID={this.state.selected_location} />
             </div>
           </div>
           <div className="col-lg-6 col-md-12">
             <div>
               <div className="row">
-                <Mapp center={this.state.centeMap} venue={this.state.venues} handleLocationSelect={this.handleLocationSelect}/>
+                <Mapp center={this.state.centeMap} venue={this.state.venues} handleLocationSelect={this.handleLocationSelect} />
               </div>
               <div className="row" style={smcardstyleGp}>
                 <div className="col-md-6" style={smcardstyle}>
@@ -142,8 +142,7 @@ class Map extends React.Component {
   }
 }
 
-
-const Mapp = ({ center,venue,handleLocationSelect}) => {
+const Mapp = ({ center, venue, handleLocationSelect }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDHzobelxj6hZ2p8gwxk3jpAkTRcXJfVYU",
     libraries,
@@ -159,19 +158,23 @@ const Mapp = ({ center,venue,handleLocationSelect}) => {
 
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={zoom} center={center}>
-      {
-        venue.map((element) => {
-          let x={
-            lat:Number(element.latitude),
-            lng:Number(element.longitude)
-          }
-          console.log("position",x)
-          return(<Marker position={x} onclick={() => {
-            console.log("clicked", element.venueID);
-            handleLocationSelect(element.venueID.toString());
-          }}/>)
-        })
-      }
+      {venue.map((element) => {
+        let x = {
+          lat: Number(element.latitude),
+          lng: Number(element.longitude),
+        };
+        console.log("position", x);
+        return (
+          <Marker
+            key={element.venueID}
+            position={x}
+            onclick={() => {
+              console.log("clicked", element.venueID);
+              handleLocationSelect(element.venueID.toString());
+            }}
+          />
+        );
+      })}
     </GoogleMap>
   );
 };
