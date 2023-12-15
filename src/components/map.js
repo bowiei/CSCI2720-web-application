@@ -165,20 +165,11 @@ const Mapp = ({ center,venue,handleLocationSelect}) => {
             lat:Number(element.latitude),
             lng:Number(element.longitude)
           }
-          // console.log("position",x)
-          return(<Marker key={element.venueID} position={x} onclick={()=>{console.log("clicked",element.venueID)
-            handleLocationSelect((element.venueID).toString())}} />)
           console.log("position",x)
-          return (
-            <Marker
-              key={element.venueID}
-              position={x}
-              onclick={() => {
-                console.log("clicked", element.venueID);
-                handleLocationSelect(element.venueID.toString());
-              }}
-            />
-          );
+          return(<Marker position={x} onclick={() => {
+            console.log("clicked", element.venueID);
+            handleLocationSelect(element.venueID.toString());
+          }}/>)
         })
       }
     </GoogleMap>
