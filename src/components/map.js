@@ -133,7 +133,7 @@ class Map extends React.Component {
                   <div className="card-body">Add Comment</div>
                 </div>
               </div>
-              <div className="row">
+              <div className="row" style={{marginTop: "10px"}}>
                 <div className="card">
                   <div className="card-body">
                     Comments

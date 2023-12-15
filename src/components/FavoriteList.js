@@ -28,6 +28,7 @@ constructor(props) {
       super(props);
       this.state = {
         favoriteLocations: [],
+        venue_details: [],
         venueMap: [],
         updated: false
       };
@@ -88,7 +89,6 @@ constructor(props) {
             console.log(error);
           });
       };
-    
 
     render() {
       const { favoriteLocations } = this.state;

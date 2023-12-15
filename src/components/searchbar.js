@@ -2,7 +2,7 @@ import React from "react";
 
 class SearchBar extends React.Component {
     render() {
-        const { filterKeyword, handleInputChange, handleFilter, handleReset, handleSort, placeholderText } = this.props;
+        const { filterKeyword, handleInputChange, handleFilter, handleReset, handleSort, placeholderText, sort } = this.props;
         const containerStyle = {
             display: "flex",
             alignItems: "center",
@@ -19,20 +19,25 @@ class SearchBar extends React.Component {
             borderRadius: "4px",
             border: "2px solid #ccc",
         }
+  
       
         return (
-          <div style={containerStyle}>
-            <input type="text" value={filterKeyword} onChange={handleInputChange} placeholder={placeholderText} style={inputStyle} />
-            <button style={buttonStyle} onClick={handleFilter}>
-              Filter
-            </button>
-            <button style={buttonStyle} onClick={handleReset}>
-              Reset
-            </button>
-            <button style={buttonStyle} onClick={handleSort}>
-              Sort
-            </button>
-          </div>
+          <>
+            <div style={containerStyle}>
+              <input type="text" value={filterKeyword} onChange={handleInputChange} placeholder={placeholderText} style={inputStyle} />
+              <button style={buttonStyle} onClick={handleFilter}>
+                Filter
+              </button>
+              <button style={buttonStyle} onClick={handleReset}>
+                Reset
+              </button>
+              {sort !== "false" && (
+                  <button style={buttonStyle} onClick={handleSort}>
+                    Sort
+                  </button>
+                )}
+            </div>
+          </>
         );
         }
       }

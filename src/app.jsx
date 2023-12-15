@@ -3,9 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/sidebar";
 import UserPage from "./pages/user";
 import AdminPage from "./pages/admin";
-import UserList from "./components/userList";
+import UserListView from "./components/userListView";
 import CommentSection from "./components/comment";
 import LocationTable from "./components/locationTable";
+import EventList from "./components/eventList";
+import UserEventList from "./components/userEventList";
 import Header from "./components/header";
 
 class App extends React.Component {
@@ -23,9 +25,11 @@ class App extends React.Component {
                 <Routes>
                   <Route path="/user" element={<UserPage user={this.props.user} />} />
                   <Route path="/admin" element={<AdminPage />} />
-                  <Route path="/userList" element={<UserList />} />
+                  <Route path="/userListView" element={<UserListView />} />
                   <Route path="/commentSection" element={<CommentSection />} />
                   <Route path="/locationTable" element={<LocationTable handleLocationSelect={this.handleLocationSelect} />} />
+                  <Route path="/UsereventList" element={<UserEventList />} />
+                  <Route path="/AdmineventList" element={<EventList />} />
                 </Routes>
               </div>
             </div>

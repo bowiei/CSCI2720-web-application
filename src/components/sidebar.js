@@ -12,17 +12,26 @@ class Sidebar extends React.Component {
                         <Link to="/user">Home</Link>
                     </li>
                     <li>
-                        <Link to="/admin">Admin Page</Link>
-                    </li>
-                    <li>
-                        <Link to="/userList">UserList Page</Link>
-                    </li>
-                    <li>
                         <Link to="/commentSection">Comment Section</Link>
                     </li>
                     <li>
-                        <Link to="/locationTable">Location Table</Link>
+                        <Link to="/locationTable">Location Details & Favorite</Link>
                     </li>
+                    <li>
+                        <Link to="/UsereventList">Event Details</Link>   
+                    </li>
+                    <br></br>
+                    <h5> Admin Only </h5>
+                    <li>
+                        <Link to="/admin">Admin CRUD (User & Event)</Link>
+                    </li>
+                    <li>
+                        <Link to="/userListView">UserList </Link>
+                    </li>
+                    <li>
+                        <Link to="/AdmineventList">Admin EventList Page</Link>   
+                    </li>
+
                 </ul>
             </div>
         </>

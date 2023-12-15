@@ -44,7 +44,6 @@ class Event extends Component {
       .catch((error) => {
         console.log("fds");
       });
-
   };
 
   render() {

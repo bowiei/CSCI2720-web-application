@@ -60,7 +60,7 @@ class VenueList extends Component {
       sortByEvent: 1,
     });
   };
-
+  
   render() {
     const { venues, filterKeyword, sortByEvent } = this.state;
 
