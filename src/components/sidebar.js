@@ -15,17 +15,14 @@ class Sidebar extends React.Component {
                         <Link to="/UsereventList">Event Details</Link>   
                     </li>
                     <br></br>
-                    <h5> Admin Only </h5>
-                    <li>
-                        <Link to="/admin">Admin CRUD (User & Event)</Link>
-                    </li>
-                    <li>
-                        <Link to="/userListView">UserList </Link>
-                    </li>
-                    <li>
-                        <Link to="/AdmineventList">Admin EventList Page</Link>   
-                    </li>
-
+                    {this.props.role === "admin" && (
+                        <div>
+                        <h5>Admin Only</h5>
+                        <li>
+                            <Link to="/admin">Admin CRUD (User & Event)</Link>
+                        </li>
+                        </div>
+                    )}
                 </ul>
             </div>
         </>

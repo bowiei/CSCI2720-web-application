@@ -64,7 +64,7 @@ router.route("/login").post((req, res) => {
           });
       } else {
         // console.log(username, password);
-        res.status(401).json("Invalid username or password."+{message:error.message});
+        res.status(401).json("Invalid username or password.");
       }
     })
     .catch((err) => res.status(400).json("Username not found: " + err));

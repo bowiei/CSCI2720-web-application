@@ -34,10 +34,10 @@ class LoginPage extends React.Component {
         const userRole = response.data.user.role;
         if (userRole === "user") {
           //   window.location.href = "/user";
-          this.props.onLogin(response.data.user.username);
+          this.props.onLogin(response.data.user.username, response.data.user.role);
         } else if (userRole === "admin") {
           //   window.location.href = "/admin";
-          this.props.onLogin(response.data.user.username);
+          this.props.onLogin(response.data.user.username, response.data.user.role);
         } else {
           console.error("Invalid user role");
         }

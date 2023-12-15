@@ -4,8 +4,6 @@ import Sidebar from "./components/sidebar";
 import UserPage from "./pages/user";
 import AdminPage from "./pages/admin";
 import LoginPage from "./pages/login";
-import UserListView from "./components/userListView";
-import EventList from "./components/eventList";
 import UserEventList from "./components/userEventList";
 import Header from "./components/header";
 
@@ -15,13 +13,14 @@ class App extends React.Component {
     this.state = {
       loggedIn: true,
       username: "",
+      role: "",
     };
   }
-  handleLogin = (username) => {
+  handleLogin = (username, role) => {
     if(username){
       this.setState({ loggedIn: false, username });
+      this.setState({ role: role });
     }
-
   };
 
   handleLogout = () => {
@@ -48,15 +47,13 @@ class App extends React.Component {
             <div>
               <div className="row">
                 <div className="col-lg-2 col-md-3">
-                  <Sidebar />
+                  <Sidebar role={this.state.role}/>
                 </div>
                 <div className="col-lg-10 col-md-9" style={{ padding: "14px" }}>
                   <Routes>
                     <Route path="/user" element={<UserPage user={this.props.user} />} />
                     <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/userListView" element={<UserListView />} />
                     <Route path="/UsereventList" element={<UserEventList />} />
-                    <Route path="/AdmineventList" element={<EventList />} />
                   </Routes>
                 </div>
               </div>
