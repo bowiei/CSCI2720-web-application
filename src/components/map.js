@@ -44,7 +44,7 @@ const smcardstyleGp = {
   border: "2px solid black",
 };
 
-let zoom = 18;
+let zoom = 16;
 
 function chooseLocation() {}
 
@@ -173,8 +173,16 @@ const Mapp = ({ center,venue,handleLocationSelect}) => {
             lng:Number(element.longitude)
           }
           console.log("position",x)
-          return(<Marker position={x} onclick={()=>{console.log("clicked",element.venueID)
-            handleLocationSelect((element.venueID).toString())}} />)
+          return (
+            <Marker
+              key={element.venueID}
+              position={x}
+              onclick={() => {
+                console.log("clicked", element.venueID);
+                handleLocationSelect(element.venueID.toString());
+              }}
+            />
+          );
         })
       }
     </GoogleMap>

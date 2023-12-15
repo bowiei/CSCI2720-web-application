@@ -25,22 +25,21 @@ mongoose
         console.log("Collections in the database:");
         for (const collection of collections) {
           console.log(collection.name);
-          if (collection.name === "venues") {
-            try {
-              const documents = await Venue.find({});
-              const count = documents.length;
-              console.log(count + " location data in database");
-              if (count >= 10) {
-                console.log("Skip import json to database");
-                return;
-              }else{
-                insertDefaultDB();
-              }
-            } catch (err) {
-              console.error("Error retrieving documents from 'venues' collection:", err);
-            }
-          }
         }
+      });
+    Venue.find({})
+      .then((documents) => {
+        const count = documents.length;
+        console.log(count + " location data in database");
+        if (count >= 10) {
+          console.log("Skip import json to database");
+          return;
+        } else {
+          insertDefaultDB();
+        }
+      })
+      .catch((err) => {
+        console.error("Error retrieving documents from 'venues' collection:", err);
       });
     
       

@@ -30,6 +30,27 @@ router.route("/register").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// Login route
+router.route("/login").post((req, res) => {
+  const { username, password } = req.body;
+
+  // Search for a user by username
+  User.findOne({ username })
+    .then((user) => {
+      // Check if the user exists and the password matches
+      if (user && user.password === password) {
+        // Create a cookie and session
+        req.session.user = user;
+        res.cookie("sessionID", req.sessionID);
+
+        res.json("Login successful!");
+      } else {
+        res.status(401).json("Invalid username or password.");
+      }
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/register").put((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -93,42 +114,26 @@ router.route("/delete/:username").delete((req, res) => {
 });
 
 //route for adding favourite locations
-router.route("/add/:username").put((req, res) => {
+router.route("/add_fav/:username").put((req, res) => {
   const { username } = req.params;
   const { venueID } = req.body;
 
-  User.findOne({ username })
-    .then((user) => {
-      if (!user) {
-        return res.status(404).json("User not found");
+  Venue.findOne({ venueID })
+    .then((venue) => {
+      if (!venue) {
+        return res.status(500).json("Error: Venue not found");
       }
 
-      Venue.find({ venueID: venueID })
-        .then((venues) => {
-          const favoriteVenueIds = venues.map((venue) => venue._id);
-          const existingFavorites = favoriteVenueIds.filter((id) =>
-            user.favoriteLocations.includes(id)
-          );
-
-          if (existingFavorites.length > 0) {
-            return res
-              .status(400)
-              .json("Location already exists in favorites");
+      User.findOneAndUpdate({ username }, { $addToSet: { favoriteLocations: venue._id } })
+        .then((user) => {
+          if (!user) {
+            return res.status(500).json("Error: User not found");
           }
-
-          user.favoriteLocations = [
-            ...user.favoriteLocations,
-            ...favoriteVenueIds,
-          ];
-
-          user
-            .save()
-            .then(() => res.json(user))
-            .catch((err) => res.status(400).json("Error: " + err));
+          return res.status(200).json(user);
         })
-        .catch((err) => res.status(400).json("Error: " + err));
+        .catch((err) => res.status(500).json("Error: " + err));
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(500).json("Error: " + err));
 });
 
 //route for remove items in favloc

@@ -10,7 +10,15 @@ class LocationTable extends Component {
       venues: [],
       filterKeyword: "",
       sortByEvent: 1,
-      updated: false
+      updated: false,
+      showColumns: {
+        venueID: false,
+        address: true,
+        latitude: false,
+        longitude: false,
+        numOfEvents: true,
+        eventIDList: false,
+      },
     };
   }
 
@@ -78,25 +86,37 @@ class LocationTable extends Component {
     this.setState({ sortByEvent: this.state.sortByEvent * -1 });
   };
 
- handleFavorite = (venue) => {
-    const data = {
-      venueID: venue
-    };
-
-    axios.put(`http://localhost:5500/user/add/user1`, data) //need to update, replace the user1
-    .then((response) => {
-      if (response.status === 404 || response.status === 400) {
-        console.log(response);
-      } else {
-        console.log("added");
-        this.setState({updated:true});
-      }
-    })
-    .catch((error) => {
-      console.log(error);
+  toggleColumn(columnName) {
+    this.setState((prevState) => {
+      const updatedShowColumns = {
+        ...prevState.showColumns,
+        [columnName]: !prevState.showColumns[columnName],
+      };
+      return {
+        showColumns: updatedShowColumns,
+      };
     });
   }
 
+  handleFavorite = (venue) => {
+    const data = {
+      venueID: venue,
+    };
+
+    axios
+      .put(`http://localhost:5500/user/add_fav/user1`, data) //need to update, replace the user1
+      .then((response) => {
+        if (response.status === 404 || response.status === 400) {
+          console.log(response);
+        } else {
+          console.log("added");
+          this.setState({ updated: true });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   handleLocationClick = (location) => {
     // Call the handleLocationSelect method from the App component to update the selected_location state
@@ -105,7 +125,7 @@ class LocationTable extends Component {
   };
 
   render() {
-    const { venues, filterKeyword } = this.state;
+    const { venues, filterKeyword, showColumns } = this.state;
     // const { handleLocationSelect } = this.props;
     return (
       <div>
@@ -117,30 +137,67 @@ class LocationTable extends Component {
           handleSort={this.handleSort}
           placeholderText="Search location(s) by keywords"
         />
+        <div className="column-toggle-bar">
+          <label>
+            <input type="checkbox" checked={showColumns.venueID} onChange={() => this.toggleColumn("venueID")} />
+            VenueID
+          </label>
+          <label>
+            <input type="checkbox" checked={showColumns.address} onChange={() => this.toggleColumn("address")} />
+            Address
+          </label>
+          <label>
+            <input type="checkbox" checked={showColumns.latitude} onChange={() => this.toggleColumn("latitude")} />
+            Latitude
+          </label>
+          <label>
+            <input type="checkbox" checked={showColumns.longitude} onChange={() => this.toggleColumn("longitude")} />
+            Longitude
+          </label>
+          <label>
+            <input type="checkbox" checked={showColumns.numOfEvents} onChange={() => this.toggleColumn("numOfEvents")} />
+            No. of Events
+          </label>
+          <label>
+            <input type="checkbox" checked={showColumns.eventIDList} onChange={() => this.toggleColumn("eventIDList")} />
+            EventID List
+          </label>
+        </div>
         <table className="table">
           <thead>
             <tr>
-              {/* <th>VenueID</th> */}
-              <th>Address</th>
-              <th>No. of Events</th>
+              {showColumns.venueID && <th>VenueID</th>}
+              {showColumns.address && <th>Address</th>}
+              {showColumns.latitude && <th>Latitude</th>}
+              {showColumns.longitude && <th>Longitude</th>}
+              {showColumns.numOfEvents && <th>No. of Events</th>}
+              {showColumns.eventIDList && <th>EventID List</th>}
             </tr>
           </thead>
           <tbody>
             {venues.map((venue) => (
               <tr key={venue.venueID}>
-                <td>
-                  {venue.address}
-                  <button className="btn btn-transparent" onClick={() => this.handleLocationClick(venue.venueID)}>
-                    📌
-                  </button>
-                      <button className = "btn btn-transparent" onClick={()=>this.handleFavorite(venue.venueID)}>⭐</button>
-                </td>
-                <td>{venue.events.length}</td>
+                {showColumns.venueID && <td>{venue.venueID}</td>}
+                {showColumns.address && (
+                  <td>
+                    {venue.address}
+                    <button className="btn btn-transparent" onClick={() => this.handleLocationClick(venue.venueID)}>
+                      📌
+                    </button>
+                    <button className="btn btn-transparent" disabled={false} onClick={() => this.handleFavorite(venue.venueID)}>
+                      ⭐
+                    </button>
+                  </td>
+                )}
+                {showColumns.latitude && <td>{venue.latitude}</td>}
+                {showColumns.longitude && <td>{venue.longitude}</td>}
+                {showColumns.numOfEvents && <td>{venue.events.length}</td>}
+                {showColumns.eventIDList && <td>{venue.events.join("\n")}</td>}
               </tr>
             ))}
           </tbody>
         </table>
-       <FavoriteList updated={this.state.updated} />
+        <FavoriteList updated={this.state.updated} />
       </div>
     );
   }
