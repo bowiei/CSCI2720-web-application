@@ -166,7 +166,7 @@ const Mapp = ({ center,venue,handleLocationSelect}) => {
             lng:Number(element.longitude)
           }
           // console.log("position",x)
-          return(<Marker position={x} onclick={()=>{console.log("clicked",element.venueID)
+          return(<Marker key={element.venueID} position={x} onclick={()=>{console.log("clicked",element.venueID)
             handleLocationSelect((element.venueID).toString())}} />)
           console.log("position",x)
           return (
