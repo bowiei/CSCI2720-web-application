@@ -49,7 +49,7 @@ class CommentSection extends Component {
   
     const newComment = {
       commentID: maxCommentID,
-      username: "test",
+      username: this.props.username,
       comment: comment,
       locID: this.props.selectedLocID,
       datetime: new Date(),

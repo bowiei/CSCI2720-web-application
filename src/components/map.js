@@ -118,7 +118,11 @@ class Map extends React.Component {
               </div>
             </div>
             <div style={{ marginTop: "10px" }}>
-              <CommentSection selectedLoc={this.state.selected_location_name} selectedLocID={this.state.selected_location} />
+              <CommentSection
+                username={this.props.username}
+                selectedLoc={this.state.selected_location_name}
+                selectedLocID={this.state.selected_location}
+              />
             </div>
           </div>
           <div className="col-lg-6 col-md-12">

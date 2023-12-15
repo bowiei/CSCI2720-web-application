@@ -44,7 +44,7 @@ class FavoriteList extends Component {
 
   fetchlist() {
     axios
-      .get("http://localhost:5500/user/user1") //need to update, replace the user1
+      .get(`http://localhost:5500/user/${this.props.username}`) //need to update, replace the user1
       .then((response) => {
         const favoriteLocations = response.data.favoriteLocations;
         const venuePromises = favoriteLocations.map((locationId) => axios.get(`http://localhost:5500/venue/find/${locationId}`));
@@ -71,7 +71,7 @@ class FavoriteList extends Component {
     };
 
     axios
-      .put(`http://localhost:5500/user/remove/user1`, data) //need to update, replace the user1
+      .put(`http://localhost:5500/user/remove/${this.props.username}`, data) //need to update, replace the user1
       .then((response) => {
         if (response.status === 404 || response.status === 400) {
           alert("Failed");

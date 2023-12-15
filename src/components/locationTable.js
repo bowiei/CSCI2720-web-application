@@ -198,7 +198,7 @@ class LocationTable extends Component {
             ))}
           </tbody>
         </table>
-        <FavoriteList fetchList={this.state.fetchList} />
+        <FavoriteList username={this.props.username}  fetchList={this.state.fetchList} />
       </div>
     );
   }
