@@ -102,7 +102,6 @@ router.route("/delete/v/:venueID/e/:eventID").delete((req, res) => {
 router.route("/add/v/:venueID/e/:eventID").put((req, res) => {
   const venueID = req.params.venueID;
   const eventIDToAdd= req.params.eventID;
-  console.log("adding rext: ", venueID);
   Venue.findOne({ venueID: venueID })
     .then((venue) => {
       if (!venue) {
@@ -120,66 +119,38 @@ router.route("/add/v/:venueID/e/:eventID").put((req, res) => {
     });
 });
 
-// Delete a specific venue by ID
-router.route("/delete/:id").delete((req, res) => {
-  Venue.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Venue deleted."))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
-
-//Add a comment to venue
-router.route("/addComment").post(async (req, res) => {
-  try {
-    const { venueID, username, comment } = req.body;
-
-    // Create a new comment document with a unique commentID
-    const newComment = new Comment({
-      username,
-      comment,
-      datetime: Date.now(),
+// Add comment ._id to venue
+router.route("/add/v/:venueID/c/:commentID").put((req, res) => {
+    const venueID = req.params.venueID;
+    const commentID= req.params.commentID;
+    // Find the venue document with the matching venueID
+    Venue.findOne({ venueID })
+    .then((venue) => {
+      if (!venue) {
+        return res.status(404).json({ message: "Venue not found" });
+      }
+      venue.comments.push(commentID);
+      return venue.save();
+    })
+    .catch((err) => { 
+      console.log(err);
+      return res.status(500).json({ message: "Internal server error" });
     });
-    await newComment.save();
-
-    // Find the venue document with the matching venueID
-    const venue = await Venue.findOne({ venueID });
-
-    if (venue) {
-      // Add the new comment's ObjectId to the venue's comments array
-      venue.comments.push(newComment._id);
-      await venue.save();
-    } else {
-      // If the venue is not found, you can choose to handle it based on your requirements
-      return res.status(404).json({ message: "Venue not found" });
-    }
-
-    res.status(200).json({ message: "Comment added successfully" });
-  } catch (err) {
-    console.error("Error adding comment:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
 });
 
-// Return a json by venueID
-router.route("/venues/comment").get(async (req, res) => {
-  try {
-    const venueID = req.query.venueID;
-
-    // Find the venue document with the matching venueID
-    const venue = await Venue.findOne({ venueID });
-
-    if (venue) {
-      // Fetch the comments associated with the venue
-      const comments = await Comment.find({ _id: { $in: venue.comments } });
-
-      res.status(200).json(comments);
-    } else {
-      // If the venue is not found, you can choose to handle it based on your requirements
-      res.status(404).json({ message: "Venue not found" });
-    }
-  } catch (err) {
-    console.error("Error fetching comments:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
+// Return a comment json by venueID
+router.route("/comment/v/:venueID").get((req, res) => {
+  Venue.findOne({ venueID: req.params.venueID })
+    .then((venue) => {
+      if (!venue) {
+        return res.status(404).json({ message: "Venue not found" });
+      }
+      res.json(venue.comments);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ message: "Internal server error" });
+    })  
 });
 
 module.exports = router;

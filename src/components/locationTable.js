@@ -133,7 +133,9 @@ class LocationTable extends Component {
                   <button className="btn btn-transparent" onClick={() => this.handleLocationClick(venue.venueID)}>
                     📌
                   </button>
-                      <button className = "btn btn-transparent" onClick={()=>this.handleFavorite(venue.venueID)}>⭐</button>
+                  <button className = "btn btn-transparent" onClick={()=>this.handleFavorite(venue.venueID)}>
+                    ⭐
+                  </button>
                 </td>
                 <td>{venue.events.length}</td>
               </tr>
