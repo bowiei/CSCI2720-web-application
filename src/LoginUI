@@ -1,0 +1,214 @@
+import ReactDOM from "react-dom/client";
+import React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
+
+
+import './UIcss.css';
+
+
+const MyComponent = () => {
+    const styles = {
+        margin: 0,
+        padding: 0,
+        boxSizing: 'border-box',
+        fontFamily: 'Poppins, sans-serif',
+        html: {
+            display: 'grid',
+            height: '100%',
+            width: '100%',
+            placeItems: 'center',
+            background: '#f2f2f2',
+        },
+        '::selection': {
+            background: '#4158d0',
+            color: '#fff',
+        },
+        '.wrapper': {
+            width: '380px',
+            background: '#fff',
+            borderRadius: '15px',
+            boxShadow: '0px 15px 20px rgba(0,0,0,0.1)',
+        },
+        '.wrapper .title': {
+            fontSize: '35px',
+            fontWeight: '600',
+            textAlign: 'center',
+            lineHeight: '100px',
+            color: '#fff',
+            userSelect: 'none',
+            borderRadius: '15px 15px 0 0',
+            background: 'linear-gradient(-135deg, #c850c0, #4158d0)',
+        },
+        'form': {
+            padding: '10px 30px 50px 30px',
+        },
+        'form .field': {
+            height: '50px',
+            width: '100%',
+            marginTop: '20px',
+            position: 'relative',
+        },
+        'form .field input': {
+            height: '100%',
+            width: '100%',
+            outline: 'none',
+            fontSize: '17px',
+            paddingLeft: '20px',
+            border: '1px solid lightgrey',
+            borderRadius: '25px',
+            transition: 'all 0.3s ease',
+        },
+        'form .field input:focus, form .field input:valid': {
+            borderColor: '#4158d0',
+        },
+        'form .field label': {
+            position: 'absolute',
+            top: '50%',
+            left: '20px',
+            color: '#999999',
+            fontWeight: '400',
+            fontSize: '17px',
+            pointerEvents: 'none',
+            transform: 'translateY(-50%)',
+            transition: 'all 0.3s ease',
+        },
+        'form .field input:focus ~ label, form .field input:valid ~ label': {
+            top: '0%',
+            fontSize: '16px',
+            color: '#4158d0',
+            background: '#fff',
+            transform: 'translateY(-50%)',
+        },
+        'form .content': {
+            display: 'flex',
+            width: '100%',
+            height: '50px',
+            fontSize: '16px',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+        },
+        'form .content .checkbox': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        'form .content input': {
+            width: '15px',
+            height: '15px',
+            background: 'red',
+        },
+        'form .content label': {
+            color: '#262626',
+            userSelect: 'none',
+            paddingLeft: '5px',
+        },
+        'form .content .pass-link': {
+            color: '',
+        },
+        'form .field input[type="submit"]': {
+            color: '#fff',
+            border: 'none',
+            paddingLeft: '0',
+            marginTop: '-10px',
+            fontSize: '20px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            background: 'linear-gradient(-135deg, #c850c0, #4158d0)',
+            transition: 'all 0.3s ease',
+        },
+        'form .field input[type="submit"]:active': {
+            transform: 'scale(0.95)',
+        },
+        'form .signup-link': {
+            color: '#262626',
+            marginTop: '20px',
+            textAlign: 'center',
+        },
+        'form .pass-link a, form .signup-link a': {
+            color: '#4158d0',
+            textDecoration: 'none',
+        },
+        'form .pass-link a:hover, form .signup-link a:hover': {
+            textDecoration: 'underline',
+        },
+    };
+
+
+class LoginPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: "",
+            password: "",
+        };
+    }
+
+    render() {
+
+        const { username, password } = this.state;
+        const { onCancel } = this.props;
+
+        return (
+            <div class="wrapper">
+                <div class="title">
+                    Login Form
+                </div>
+                <form action="#">
+                    <div class="field">
+                        <input type="text" required/>
+                            <label>Email Address</label>
+                    </div>
+                    <div class="field">
+                        <input type="password" required/>
+                            <label>Password</label>
+                    </div>
+                    <div class="content">
+                        <div class="checkbox">
+                            <input type="checkbox" id="remember-me"/>
+                                <label for="remember-me">Remember me</label>
+                        </div>
+                        <div class="pass-link">
+                            <a href="#">Forgot password?</a>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Login"/>
+                    </div>
+                    <div class="signup-link">
+                        Not a member? <a href="#">Signup now</a>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+
+
+class UserPage extends React.Component {
+    render() {
+        return (
+            {}
+        );
+    }
+}
+
+class AdmainPage extends React.Component {
+    render() {
+        return (
+            {}
+        );
+    }
+}
+
+
+
+const root = ReactDOM.createRoot(document.querySelector('#loginPage'));
+root.render(<LoginPage />);
